@@ -31,11 +31,10 @@ public class TransactionService {
     private static void sendNotify(Transaction transaction, Connection connection) throws SQLException {
         CustomerRepository customerRepository = new CustomerRepository();
         Customer customer=customerRepository.getCustomerByCardNumber(transaction.getSenderCardNumber(), connection);
-        Notify notify=customer.getNotify();
-        BaseNotification notification= NotificationFactory.createNotification(notify);
+        BaseNotification notification= NotificationFactory.createNotification(Notify.EMAIL);
         notification.notifyUser();
     }
-    
+
     private void saveTransaction(Transaction transaction, Connection connection) throws SQLException {
         try {
             TransactionRepository transactionRepository = new TransactionRepository();
