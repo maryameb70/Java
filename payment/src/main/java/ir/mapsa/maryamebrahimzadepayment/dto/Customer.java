@@ -8,6 +8,17 @@ public class Customer {
     private String cardNumber;
     private Long balance;
     private String customerId;
+    private String phone;
+    private String email;
+    private Notify notify;
+
+    public Notify getNotify() {
+        return notify;
+    }
+
+    public void setNotify(Notify notify) {
+        this.notify = notify;
+    }
 
     public Long getId() {
         return id;
@@ -63,5 +74,21 @@ public class Customer {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

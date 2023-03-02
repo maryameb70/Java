@@ -1,7 +1,6 @@
 package ir.mapsa.maryamebrahimzadepayment.service;
 
-import ir.mapsa.maryamebrahimzadepayment.dto.Customer;
-import ir.mapsa.maryamebrahimzadepayment.dto.Transaction;
+import ir.mapsa.maryamebrahimzadepayment.dto.*;
 import ir.mapsa.maryamebrahimzadepayment.repository.CustomerRepository;
 import ir.mapsa.maryamebrahimzadepayment.repository.TransactionRepository;
 import ir.mapsa.maryamebrahimzadepayment.repository.util.HandleConnection;
@@ -23,11 +22,19 @@ public class TransactionService {
                 return;
             }
             saveTransaction(transaction, connection);
+            CustomerRepository customerRepository = new CustomerRepository();
+            Customer customer=customerRepository.getCustomerByCardNumber(transaction.getSenderCardNumber(),connection);
+            Notify notify=customer.getNotify();
+            BaseNotification notification= NotificationFactory.createNotification(notify);
+            notification.notifyUser();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public void sendNotification(){
+
+    }
     private void saveTransaction(Transaction transaction, Connection connection) throws SQLException {
         try {
             TransactionRepository transactionRepository = new TransactionRepository();

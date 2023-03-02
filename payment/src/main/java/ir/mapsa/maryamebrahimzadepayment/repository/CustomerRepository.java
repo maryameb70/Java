@@ -1,6 +1,7 @@
 package ir.mapsa.maryamebrahimzadepayment.repository;
 
 import ir.mapsa.maryamebrahimzadepayment.dto.Customer;
+import ir.mapsa.maryamebrahimzadepayment.dto.Notify;
 
 import java.sql.*;
 
@@ -9,12 +10,12 @@ public class CustomerRepository implements BaseRepository<Customer> {
 
     @Override
     public void add(Customer customer, Connection connection) throws SQLException {
-        executeUpdateQuery("insert into customer (card_number, first_name, last_name, age, balance, customer_id) values (?,?,?,?,?,?);", customer,connection);
+        executeUpdateQuery("insert into customer (card_number, first_name, last_name, age, balance, customer_id,phone, email, notify) values (?,?,?,?,?,?,?,?,?);", customer,connection);
     }
 
     @Override
     public void update(Customer customer, Connection connection) throws SQLException {
-        executeUpdateQuery("update customer set card_number=?, first_name=?, last_name=?, age=?, balance=?, customer_id=? where id=?;", customer, connection);
+        executeUpdateQuery("update customer set card_number=?, first_name=?, last_name=?, age=?, balance=?, customer_id=?,phone=?, email=?, notify=? where id=?;", customer, connection);
     }
 
     private void executeUpdateQuery(String query, Customer customer, Connection connection) throws SQLException {
@@ -25,8 +26,11 @@ public class CustomerRepository implements BaseRepository<Customer> {
             statement.setInt(4, customer.getAge());
             statement.setLong(5, customer.getBalance());
             statement.setString(6, customer.getCustomerId());
+            statement.setString(7,customer.getPhone());
+            statement.setString(8,customer.getEmail());
+            statement.setString(9,String.valueOf(customer.getNotify()));
             if (customer.getId() != null) {
-                statement.setLong(7, customer.getId());
+                statement.setLong(10, customer.getId());
             }
             statement.executeUpdate();
         }
@@ -57,6 +61,9 @@ public class CustomerRepository implements BaseRepository<Customer> {
         customer.setAge(resultSet.getInt("age"));
         customer.setBalance(resultSet.getLong("balance"));
         customer.setCustomerId(resultSet.getString("customer_id"));
+        customer.setPhone(resultSet.getString("phone"));
+        customer.setEmail(resultSet.getString("email"));
+        customer.setNotify(Notify.valueOf(resultSet.getString("notify")));
         return customer;
     }
 
