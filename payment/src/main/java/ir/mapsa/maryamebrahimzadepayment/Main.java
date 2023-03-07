@@ -3,9 +3,9 @@ package ir.mapsa.maryamebrahimzadepayment;
 import ir.mapsa.maryamebrahimzadepayment.dto.Customer;
 import ir.mapsa.maryamebrahimzadepayment.dto.Notify;
 import ir.mapsa.maryamebrahimzadepayment.dto.Transaction;
-import ir.mapsa.maryamebrahimzadepayment.repository.CustomerRepository;
-import ir.mapsa.maryamebrahimzadepayment.repository.util.HandleConnection;
-import ir.mapsa.maryamebrahimzadepayment.service.TransactionService;
+import ir.mapsa.maryamebrahimzadepayment.repositories.CustomerRepository;
+import ir.mapsa.maryamebrahimzadepayment.repositories.util.HandleConnection;
+import ir.mapsa.maryamebrahimzadepayment.services.TransactionService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
