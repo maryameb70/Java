@@ -14,8 +14,6 @@ public class StudentConverter implements BaseConverter<StudentDto, Student> {
         Student e=new Student();
         e.setId(d.getId());
         e.setVersion(d.getVersion());
-        e.setInsertTimestamp(d.getInsertTimestamp());
-        e.setLastUpdateTimeStamp(d.getLastUpdateTimeStamp());
         e.setName(d.getName());
         e.setFamily(d.getFamily());
         e.setAge(d.getAge());
@@ -31,8 +29,6 @@ public class StudentConverter implements BaseConverter<StudentDto, Student> {
         StudentDto d=new StudentDto();
         d.setId(e.getId());
         d.setVersion(e.getVersion());
-        d.setInsertTimestamp(e.getInsertTimestamp());
-        d.setLastUpdateTimeStamp(e.getLastUpdateTimeStamp());
         d.setName(e.getName());
         d.setFamily(e.getFamily());
         d.setAge(e.getAge());

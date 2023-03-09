@@ -12,8 +12,6 @@ public class CourseConverter implements BaseConverter<CourseDto, Course> {
         Course e = new Course();
         e.setId(d.getId());
         e.setVersion(d.getVersion());
-        e.setInsertTimestamp(d.getInsertTimestamp());
-        e.setLastUpdateTimeStamp(d.getLastUpdateTimeStamp());
         e.setName(d.getName());
         e.setTopic(d.getTopic());
         e.setUnit(d.getUnit());
@@ -25,8 +23,6 @@ public class CourseConverter implements BaseConverter<CourseDto, Course> {
         CourseDto d = new CourseDto();
         d.setId(e.getId());
         d.setVersion(e.getVersion());
-        d.setInsertTimestamp(e.getInsertTimestamp());
-        d.setLastUpdateTimeStamp(e.getLastUpdateTimeStamp());
         d.setName(e.getName());
         d.setTopic(e.getTopic());
         d.setUnit(e.getUnit());

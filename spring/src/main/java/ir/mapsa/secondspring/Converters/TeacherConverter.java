@@ -11,8 +11,6 @@ public class TeacherConverter implements BaseConverter<TeacherDto, Teacher> {
         Teacher e=new Teacher();
         e.setId(d.getId());
         e.setVersion(d.getVersion());
-        e.setInsertTimestamp(d.getInsertTimestamp());
-        e.setLastUpdateTimeStamp(d.getLastUpdateTimeStamp());
         e.setName(d.getName());
         e.setFamily(d.getFamily());
         e.setGender(d.getGender());
@@ -27,8 +25,6 @@ public class TeacherConverter implements BaseConverter<TeacherDto, Teacher> {
         TeacherDto d=new TeacherDto();
         d.setId(e.getId());
         d.setVersion(e.getVersion());
-        d.setInsertTimestamp(e.getInsertTimestamp());
-        d.setLastUpdateTimeStamp(e.getLastUpdateTimeStamp());
         d.setName(e.getName());
         d.setFamily(e.getFamily());
         d.setGender(e.getGender());
