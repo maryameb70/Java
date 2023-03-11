@@ -1,0 +1,28 @@
+package ir.mapsa.maryamebrahimzadepayment.models;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.Date;
+@MappedSuperclass
+@Data
+@ToString
+@EqualsAndHashCode
+@EntityListeners(AuditingEntityListener.class)
+public abstract class AbstractEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
+    @Version
+    private Integer version;
+    @CreatedDate
+    private Date insertTimeStamp;
+    @UpdateTimestamp
+    private Date updateTimeStamp;
+}

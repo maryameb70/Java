@@ -1,0 +1,101 @@
+package ir.mapsa.maryamebrahimzadepayment.services;
+
+import ir.mapsa.maryamebrahimzadepayment.controllers.RestExceptionHandler;
+import ir.mapsa.maryamebrahimzadepayment.converters.CustomerConverter;
+import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
+import ir.mapsa.maryamebrahimzadepayment.models.Customer;
+import ir.mapsa.maryamebrahimzadepayment.dto.CustomerDto;
+import ir.mapsa.maryamebrahimzadepayment.repositories.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.Optional;
+
+@Service
+public class CustomerService extends AbstractService<CustomerRepository, Customer> {
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerConverter customerConverter;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
+
+    public Customer withdraw(String cardNumber, Long amount) {
+        try {
+            Customer customer = customerRepository.findByCardNumber(cardNumber);
+            if (customer == null) {
+                customer = customerRepository.findByAccountNumber(cardNumber);
+            }
+            if (customer != null && amount < customer.getBalance()) {
+
+                customer.setBalance(customer.getBalance() - amount);
+                customerRepository.save(customer);
+                return customer;
+            }
+        } catch (Exception e) {
+            LOGGER.error("withdraw exception!");
+//            throw new ServiceException("");
+        }
+        return null;
+    }
+
+    public Customer deposit(String cardNumber, Long amount) {
+        try {
+            Customer customer = customerRepository.findByCardNumber(cardNumber);
+            if (customer == null) {
+                customer = customerRepository.findByAccountNumber(cardNumber);
+            }
+            if (customer != null) {
+                customer.setBalance(customer.getBalance() + amount);
+                customerRepository.save(customer);
+                return customer;
+            }
+        } catch (Exception e) {
+            LOGGER.error("deposit exception!");
+//            throw new ServiceException("");
+        }
+        return null;
+    }
+
+    public Long accountBalance(String cardNumber) throws ServiceException {
+        Customer customer = customerRepository.findByCardNumber(cardNumber);
+        if (customer != null) {
+            return customer.getBalance();
+        } else {
+            throw new ServiceException("user_not_found");
+        }
+    }
+
+    public void insert(CustomerDto customer) {
+        /*todo: add validation*/
+        Customer cm = customerConverter.convertDto(customer);
+        cm.setInsertTimeStamp(new Date());
+        customerRepository.save(cm);
+    }
+
+    public Customer getById(Long id) throws ServiceException {
+        Optional<Customer> customer = customerRepository.findById(id);
+        try {
+            return customer.orElseThrow();
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage(), "user_not_Found");
+        }
+    }
+
+    public void update(CustomerDto customerDto) throws ServiceException {
+        Customer customer =customerRepository.findById(customerDto.getId())
+                .orElseThrow(()->new ServiceException("customer_not_found"));
+        change(customer,customerDto);
+        customerRepository.save(customer) ;
+    }
+
+    private void change(Customer customer, CustomerDto customerDto){
+        if(customerDto.getCardNumber()!= null) customer.setCardNumber(customerDto.getCardNumber());
+        if(customerDto.getAge()!= null) customer.setAge(customerDto.getAge());
+        if(customerDto.getBalance()!= null) customer.setBalance(customerDto.getBalance());
+        if(customerDto.getFirstName()!= null) customer.setFirstName(customerDto.getFirstName());
+        if(customerDto.getLastName()!= null) customer.setLastName(customerDto.getLastName());
+    }
+}
