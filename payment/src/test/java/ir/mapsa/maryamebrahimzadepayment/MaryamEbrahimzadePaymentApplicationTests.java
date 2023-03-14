@@ -1,10 +1,10 @@
-package ir.mapsa.maryamebrahimzadepayment14011205;
+package ir.mapsa.maryamebrahimzadepayment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MaryamEbrahimzadePayment14011205ApplicationTests {
+class MaryamEbrahimzadePaymentApplicationTests {
 
     @Test
     void contextLoads() {
