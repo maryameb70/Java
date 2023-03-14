@@ -18,42 +18,34 @@ import java.util.Optional;
 public class CustomerService extends AbstractService<CustomerRepository, Customer> {
     @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
-    private CustomerConverter customerConverter;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-    public Customer withdraw(String cardNumber, Long amount) {
+    public Customer withdraw(Customer customer, Long amount) {
         try {
-            Customer customer = customerRepository.findByCardNumber(cardNumber);
-            if (customer == null) {
-                customer = customerRepository.findByAccountNumber(cardNumber);
-            }
+            customer = customerRepository.findByCardNumber(customer.getCardNumber());
             if (customer != null && amount < customer.getBalance()) {
-
                 customer.setBalance(customer.getBalance() - amount);
                 customerRepository.save(customer);
                 return customer;
             }
         } catch (Exception e) {
-            LOGGER.error("withdraw exception!");
+            LOGGER.error("withdraw exception!",e);
 //            throw new ServiceException("");
         }
         return null;
     }
 
-    public Customer deposit(String cardNumber, Long amount) {
+    public Customer deposit(Customer customer, Long amount) {
         try {
-            Customer customer = customerRepository.findByCardNumber(cardNumber);
-            if (customer == null) {
-                customer = customerRepository.findByAccountNumber(cardNumber);
-            }
+            customer = customerRepository.findByCardNumber(customer.getCardNumber());
             if (customer != null) {
                 customer.setBalance(customer.getBalance() + amount);
                 customerRepository.save(customer);
                 return customer;
             }
         } catch (Exception e) {
-            LOGGER.error("deposit exception!");
+            LOGGER.error("deposit exception!",e);
 //            throw new ServiceException("");
         }
         return null;
@@ -68,13 +60,6 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
         }
     }
 
-    public void insert(CustomerDto customer) {
-        /*todo: add validation*/
-        Customer cm = customerConverter.convertDto(customer);
-        cm.setInsertTimeStamp(new Date());
-        customerRepository.save(cm);
-    }
-
     public Customer getById(Long id) throws ServiceException {
         Optional<Customer> customer = customerRepository.findById(id);
         try {
@@ -85,17 +70,17 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
     }
 
     public void update(CustomerDto customerDto) throws ServiceException {
-        Customer customer =customerRepository.findById(customerDto.getId())
-                .orElseThrow(()->new ServiceException("customer_not_found"));
-        change(customer,customerDto);
-        customerRepository.save(customer) ;
+        Customer customer = customerRepository.findById(customerDto.getId())
+                .orElseThrow(() -> new ServiceException("customer_not_found"));
+        change(customer, customerDto);
+        customerRepository.save(customer);
     }
 
-    private void change(Customer customer, CustomerDto customerDto){
-        if(customerDto.getCardNumber()!= null) customer.setCardNumber(customerDto.getCardNumber());
-        if(customerDto.getAge()!= null) customer.setAge(customerDto.getAge());
-        if(customerDto.getBalance()!= null) customer.setBalance(customerDto.getBalance());
-        if(customerDto.getFirstName()!= null) customer.setFirstName(customerDto.getFirstName());
-        if(customerDto.getLastName()!= null) customer.setLastName(customerDto.getLastName());
+    private void change(Customer customer, CustomerDto customerDto) {
+        if (customerDto.getCardNumber() != null) customer.setCardNumber(customerDto.getCardNumber());
+        if (customerDto.getAge() != null) customer.setAge(customerDto.getAge());
+        if (customerDto.getBalance() != null) customer.setBalance(customerDto.getBalance());
+        if (customerDto.getFirstName() != null) customer.setFirstName(customerDto.getFirstName());
+        if (customerDto.getLastName() != null) customer.setLastName(customerDto.getLastName());
     }
 }

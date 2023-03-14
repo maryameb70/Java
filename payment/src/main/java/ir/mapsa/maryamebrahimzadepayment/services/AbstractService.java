@@ -15,11 +15,11 @@ public abstract class AbstractService<R extends JpaRepository<E,Long>,E> {
     @Autowired
     private R repository;
 
-    public void add( E e)throws Exception{
+    public void add( E e)throws ServiceException{
         repository.save(e);
     }
 
-    public void update( E e)throws Exception{
+    public void update( E e)throws ServiceException{
         repository.save(e);
     }
 

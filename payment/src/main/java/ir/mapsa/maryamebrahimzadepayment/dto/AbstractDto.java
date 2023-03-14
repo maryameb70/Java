@@ -8,5 +8,5 @@ public abstract class AbstractDto {
     private Long Id;
     private Integer version;
     private Date insertTimeStamp;
-    private Date updateTimeStamp;
+    private Date lastUpdateTimestamp;
 }

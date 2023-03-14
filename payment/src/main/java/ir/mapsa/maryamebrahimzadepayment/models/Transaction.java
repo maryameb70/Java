@@ -7,13 +7,13 @@ import lombok.ToString;
 
 import java.util.Date;
 @Entity
-@Table(name="transaction")
+@Table(name="TRANSACTION")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class Transaction extends AbstractEntity {
-    private Date date;
     private Long amount;
+    private Date date;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private Customer sender;
