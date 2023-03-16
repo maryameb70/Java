@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public abstract class AbstractService<R extends JpaRepository<E,Long>,E> {
     @Autowired
-    private R repository;
+    protected R repository;
 
     public void add( E e)throws ServiceException{
         repository.save(e);

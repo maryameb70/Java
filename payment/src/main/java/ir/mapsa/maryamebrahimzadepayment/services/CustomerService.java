@@ -16,17 +16,15 @@ import java.util.Optional;
 
 @Service
 public class CustomerService extends AbstractService<CustomerRepository, Customer> {
-    @Autowired
-    private CustomerRepository customerRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     public Customer withdraw(Customer customer, Long amount) {
         try {
-            customer = customerRepository.findByCardNumber(customer.getCardNumber());
+            customer = repository.findByCardNumber(customer.getCardNumber());
             if (customer != null && amount < customer.getBalance()) {
                 customer.setBalance(customer.getBalance() - amount);
-                customerRepository.save(customer);
+                repository.save(customer);
                 return customer;
             }
         } catch (Exception e) {
@@ -38,10 +36,10 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
 
     public Customer deposit(Customer customer, Long amount) {
         try {
-            customer = customerRepository.findByCardNumber(customer.getCardNumber());
+            customer = repository.findByCardNumber(customer.getCardNumber());
             if (customer != null) {
                 customer.setBalance(customer.getBalance() + amount);
-                customerRepository.save(customer);
+                repository.save(customer);
                 return customer;
             }
         } catch (Exception e) {
@@ -52,7 +50,7 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
     }
 
     public Long accountBalance(String cardNumber) throws ServiceException {
-        Customer customer = customerRepository.findByCardNumber(cardNumber);
+        Customer customer = repository.findByCardNumber(cardNumber);
         if (customer != null) {
             return customer.getBalance();
         } else {
@@ -61,10 +59,10 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
     }
 
     public Customer convertCard(String cardNumber) {
-        return customerRepository.findByCardNumber(cardNumber);
+        return repository.findByCardNumber(cardNumber);
     }
     public Customer getById(Long id) throws ServiceException {
-        Optional<Customer> customer = customerRepository.findById(id);
+        Optional<Customer> customer = repository.findById(id);
         try {
             return customer.orElseThrow();
         } catch (Exception e) {
@@ -73,10 +71,10 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
     }
 
     public void update(CustomerDto customerDto) throws ServiceException {
-        Customer customer = customerRepository.findById(customerDto.getId())
+        Customer customer = repository.findById(customerDto.getId())
                 .orElseThrow(() -> new ServiceException("customer_not_found"));
         change(customer, customerDto);
-        customerRepository.save(customer);
+        repository.save(customer);
     }
 
     private void change(Customer customer, CustomerDto customerDto) {
