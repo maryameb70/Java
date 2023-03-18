@@ -51,6 +51,8 @@ public class AccountNumberTransfer implements BaseTransfer {
 
     @Override
     public Boolean resolve(TransactionDto dto) {
+        // you can use type in your transaction dto and based on that decide to resolve the transaction:
+        //return dto.getType.equals("account");
         Customer cReceiver=customerService.convertCard(dto.getDestination());
         Customer cSender=customerService.convertCard(dto.getSource());
         return !cReceiver.getCardNumber().startsWith("IR") && !cSender.getCardNumber().startsWith("5859");

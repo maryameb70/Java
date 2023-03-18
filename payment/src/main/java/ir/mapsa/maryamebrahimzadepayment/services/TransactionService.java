@@ -9,4 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionService extends AbstractService<TransactionRepository, Transaction> {
 
+    //bring all transaction related services here.
+
 }

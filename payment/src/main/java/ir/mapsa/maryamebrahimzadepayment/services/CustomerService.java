@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 
+    // use transactional here. what is the best transactional propagation here???:
+    //@Transactional(propagation = ???)
     public Customer withdraw(Customer customer, Long amount) {
         try {
             customer = repository.findByCardNumber(customer.getCardNumber());
@@ -33,7 +36,8 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
         }
         return null;
     }
-
+    // use transactional here. what is the best transactional propagation here???:
+    //@Transactional(propagation =??? )
     public Customer deposit(Customer customer, Long amount) {
         try {
             customer = repository.findByCardNumber(customer.getCardNumber());
