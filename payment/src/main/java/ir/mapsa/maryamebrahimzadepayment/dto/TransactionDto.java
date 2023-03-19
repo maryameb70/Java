@@ -1,4 +1,5 @@
 package ir.mapsa.maryamebrahimzadepayment.dto;
+import ir.mapsa.maryamebrahimzadepayment.models.TransactionType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,4 +13,5 @@ public class TransactionDto extends AbstractDto {
     private String source;
     private String destination;
     private String transactionId;
+    private TransactionType type;
 }
