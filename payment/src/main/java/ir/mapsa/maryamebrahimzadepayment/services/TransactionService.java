@@ -36,16 +36,22 @@ public class TransactionService extends AbstractService<TransactionRepository, T
         }
         resolveTransaction(cSender, cReceiver, dto.getAmount());
 
+        Transaction trxEntity = saveTransaction(dto, cSender, cReceiver);
+
+        notificationSender.send(NotificationType.EMAIL, new NotificationText("kasr ", cSender.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
+        notificationSender.send(NotificationType.SMS, new NotificationText("plus", cReceiver.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
+    }
+
+    private Transaction saveTransaction(TransactionDto dto, Customer cSender, Customer cReceiver) {
         Transaction trxEntity = new Transaction();
         trxEntity.setReceiver(cReceiver);
         trxEntity.setSender(cSender);
         trxEntity.setDate(new Date());
         trxEntity.setAmount(dto.getAmount());
         repository.save(trxEntity);
-
-        notificationSender.send(NotificationType.EMAIL, new NotificationText("kasr ", cSender.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
-        notificationSender.send(NotificationType.SMS, new NotificationText("plus", cReceiver.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
+        return trxEntity;
     }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void resolveTransaction(Customer sender, Customer receiver, Long amount) throws ServiceException {
         customerService.withdraw(sender, amount);
