@@ -11,6 +11,8 @@ public class CustomerConverter implements BaseConverter<CustomerDto,Customer> {
         Customer e = new Customer();
         e.setId(d.getId());
         e.setVersion(d.getVersion());
+        e.setInsertTimeStamp(d.getInsertTimeStamp());
+        e.setLastUpdateTimestamp(d.getLastUpdateTimestamp());
         e.setFirstName(d.getFirstName());
         e.setLastName(d.getLastName());
         e.setAge(d.getAge());
@@ -26,6 +28,8 @@ public class CustomerConverter implements BaseConverter<CustomerDto,Customer> {
         CustomerDto d = new CustomerDto();
         d.setId(e.getId());
         d.setVersion(e.getVersion());
+        d.setInsertTimeStamp(e.getInsertTimeStamp());
+        d.setLastUpdateTimestamp(e.getLastUpdateTimestamp());
         d.setFirstName(e.getFirstName());
         d.setLastName(e.getLastName());
         d.setAge(e.getAge());
