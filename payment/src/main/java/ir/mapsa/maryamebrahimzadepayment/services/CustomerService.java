@@ -34,10 +34,12 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
         }
     }
 
-    public Customer convertCard(String cardNumber) {
+    public Customer findByCardNumber(String cardNumber) {
         return repository.findByCardNumber(cardNumber);
     }
-
+    public Customer findByAccountNumber(String acNum) {
+        return repository.findByCardNumber(acNum);
+    }
     public Customer getById(Long id) throws ServiceException {
         Optional<Customer> customer = repository.findById(id);
         try {

@@ -8,12 +8,12 @@ import java.util.List;
 @Service
 public class TransferLocator {
     @Autowired
-    private List<BaseTransfer> transfers;
+    private List<BaseTransaction> transfers;
     @Autowired
-    private TransactionService service;
+    private CardTransactionService service;
     public void transfer(TransactionDto tDto) throws ServiceException {
         boolean support = true;
-        for (BaseTransfer transfer : transfers) {
+        for (BaseTransaction transfer : transfers) {
             if (transfer.resolve(tDto)) {
                 service.transfer(tDto);
                 support=true;

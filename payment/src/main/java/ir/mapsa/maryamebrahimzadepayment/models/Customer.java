@@ -19,7 +19,9 @@ public class Customer extends AbstractEntity {
     private String firstName;
     private String lastName;
     private Integer age;
+    //put account fields in a separate entity : BankInfo
     private String cardNumber;
+    private String accountNumber;
     private Long balance;
     private String email;
     @Column(unique = true)
