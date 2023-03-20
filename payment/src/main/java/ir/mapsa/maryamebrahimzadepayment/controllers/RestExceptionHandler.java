@@ -34,8 +34,7 @@ public class RestExceptionHandler {
         ExceptionResponse value = new ExceptionResponse();
         value.setError(true);
         String property = properties.getProperty(exception.getErrorCode());
-        if(properties==null){// property should be checked here.
-
+        if(property==null){
             property=properties.getProperty("default");
         }
         value.setMessage(property);

@@ -24,8 +24,4 @@ public class Customer extends AbstractEntity {
     private String email;
     @Column(unique = true)
     private String customerId;
-//    it is better not to keep transaction list in customer entity. use unidirectional manyToOne.
-    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = @ForeignKey(name = "cardNumber"))
-    private List<Transaction> transactions;
 }

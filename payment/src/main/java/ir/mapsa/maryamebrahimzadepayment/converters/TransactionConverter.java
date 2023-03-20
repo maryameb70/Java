@@ -15,6 +15,9 @@ public class TransactionConverter implements BaseConverter<TransactionDto, Trans
     public Transaction convertDto(TransactionDto d) {
         Transaction e = new Transaction();
         e.setId(d.getId());
+        e.setVersion(d.getVersion());
+        e.setInsertTimeStamp(d.getInsertTimeStamp());
+        e.setLastUpdateTimestamp(d.getLastUpdateTimestamp());
         e.setDate(d.getDate());
         e.setSender(customerRepository.findByCardNumber(d.getSource()));
         e.setReceiver(customerRepository.findByCardNumber(d.getDestination()));
@@ -27,6 +30,9 @@ public class TransactionConverter implements BaseConverter<TransactionDto, Trans
     public TransactionDto convertEntity(Transaction e) {
         TransactionDto d = new TransactionDto();
         d.setId(e.getId());
+        d.setVersion(e.getVersion());
+        d.setInsertTimeStamp(e.getInsertTimeStamp());
+        d.setLastUpdateTimestamp(e.getLastUpdateTimestamp());
         d.setDate(e.getDate());
         d.setSource(e.getSender().getCardNumber());
         d.setDestination(e.getReceiver().getCardNumber());

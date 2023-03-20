@@ -16,6 +16,4 @@ public class CustomerDto extends AbstractDto{
     private Long balance;
     private String email;
     private String customerId;
-    private List<TransactionDto> transactions;
-
 }

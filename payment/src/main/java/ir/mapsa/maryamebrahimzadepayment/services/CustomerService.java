@@ -1,56 +1,28 @@
 package ir.mapsa.maryamebrahimzadepayment.services;
 
-import ir.mapsa.maryamebrahimzadepayment.controllers.RestExceptionHandler;
-import ir.mapsa.maryamebrahimzadepayment.converters.CustomerConverter;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
 import ir.mapsa.maryamebrahimzadepayment.models.Customer;
 import ir.mapsa.maryamebrahimzadepayment.dto.CustomerDto;
 import ir.mapsa.maryamebrahimzadepayment.repositories.CustomerRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Service
 public class CustomerService extends AbstractService<CustomerRepository, Customer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
-
-    // use transactional here. what is the best transactional propagation here???:
-    //@Transactional(propagation = ???)
-    public Customer withdraw(Customer customer, Long amount) {
-        try {
-            customer = repository.findByCardNumber(customer.getCardNumber());
-            if (customer != null && amount < customer.getBalance()) {
-                customer.setBalance(customer.getBalance() - amount);
-                repository.save(customer);
-                return customer;
-            }
-        } catch (Exception e) {
-            LOGGER.error("withdraw exception!",e);
-//            throw new ServiceException("");
+    public void withdraw(Customer customer, Long amount) throws ServiceException {
+        if (amount > customer.getBalance()) {
+            throw new ServiceException("your_balance_is_not_enough");
         }
-        return null;
+        customer.setBalance(customer.getBalance() - amount);
+        repository.save(customer);
     }
-    // use transactional here. what is the best transactional propagation here???:
-    //@Transactional(propagation =??? )
-    public Customer deposit(Customer customer, Long amount) {
-        try {
-            customer = repository.findByCardNumber(customer.getCardNumber());
-            if (customer != null) {
-                customer.setBalance(customer.getBalance() + amount);
-                repository.save(customer);
-                return customer;
-            }
-        } catch (Exception e) {
-            LOGGER.error("deposit exception!",e);
-//            throw new ServiceException("");
-        }
-        return null;
+
+    public void deposit(Customer customer, Long amount) {
+        customer.setBalance(customer.getBalance() + amount);
+        repository.save(customer);
     }
 
     public Long accountBalance(String cardNumber) throws ServiceException {
@@ -65,6 +37,7 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
     public Customer convertCard(String cardNumber) {
         return repository.findByCardNumber(cardNumber);
     }
+
     public Customer getById(Long id) throws ServiceException {
         Optional<Customer> customer = repository.findById(id);
         try {
@@ -74,6 +47,7 @@ public class CustomerService extends AbstractService<CustomerRepository, Custome
         }
     }
 
+    @Transactional
     public void update(CustomerDto customerDto) throws ServiceException {
         Customer customer = repository.findById(customerDto.getId())
                 .orElseThrow(() -> new ServiceException("customer_not_found"));
