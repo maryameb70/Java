@@ -4,6 +4,7 @@ import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
 import ir.mapsa.maryamebrahimzadepayment.models.Transaction;
 import ir.mapsa.maryamebrahimzadepayment.services.CardTransactionService;
+import ir.mapsa.maryamebrahimzadepayment.services.CommonBaseTransaction;
 import ir.mapsa.maryamebrahimzadepayment.services.TransferLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
