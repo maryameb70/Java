@@ -1,25 +1,25 @@
 package ir.mapsa.maryamebrahimzadepayment.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.List;
-
 @Entity
-@Table(name = "CUSTOMER")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-public class Customer extends AbstractEntity {
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String email;
+public class Branch extends AbstractEntity{
+    private String name;
+    private Integer branchCode;
     @Column(unique = true)
-    private String customerId;
+    private String branchId;
+    @OneToOne(mappedBy = "branch")
+    private BankInfo bankInfo;
 }
