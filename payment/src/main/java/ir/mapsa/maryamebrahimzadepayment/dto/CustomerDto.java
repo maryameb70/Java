@@ -12,8 +12,6 @@ public class CustomerDto extends AbstractDto{
     private String firstName;
     private String lastName;
     private Integer age;
-    private String cardNumber;
-    private Long balance;
     private String email;
     private String customerId;
 }
