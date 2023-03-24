@@ -22,4 +22,5 @@ public class Customer extends AbstractEntity {
     private String email;
     @Column(unique = true)
     private String customerId;
+    //better to add list of bankInfo here : bidirectional
 }

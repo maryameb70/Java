@@ -22,9 +22,11 @@ public class BankInfo extends AbstractEntity {
     private Long balance;
     private String ccv;
     private Date expirationDate;
+    //branch relation is manyToOne : many bankInfo can belongs to one branch.
     @OneToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
+    // accountType is manyToOne : many bankInfo can be a type.
     @OneToOne
     @JoinColumn(name = "accountType_id", referencedColumnName = "id")
     private AccountType accountType;

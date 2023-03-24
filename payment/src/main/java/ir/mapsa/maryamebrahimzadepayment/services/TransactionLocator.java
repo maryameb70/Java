@@ -2,15 +2,12 @@ package ir.mapsa.maryamebrahimzadepayment.services;
 
 import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
-import ir.mapsa.maryamebrahimzadepayment.models.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 @Service
-public class TransferLocator {
+public class TransactionLocator implements BaseTransaction {
     @Autowired
     private List<BaseTransaction> transfers;
     public void transfer(TransactionDto tDto) throws ServiceException {
@@ -27,5 +24,10 @@ public class TransferLocator {
         if (!support) {
             throw new ServiceException("transfer_not_supported");
         }
+    }
+
+    @Override
+    public Boolean resolve(TransactionDto dto) throws ServiceException {
+        return null;
     }
 }
