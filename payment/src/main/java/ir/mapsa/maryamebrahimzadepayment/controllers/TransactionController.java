@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/transfer")
-public class TransactionController extends AbstractController<Transaction, TransactionDto, CardTransactionService> {
+public class TransactionController extends AbstractController<Transaction, TransactionDto, TransactionLocator> {
     @Autowired
     private TransactionLocator transferLocator;
 

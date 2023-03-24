@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class TransactionLocator implements BaseTransaction {
+public class TransactionLocator extends CommonBaseTransaction {
     @Autowired
     private List<BaseTransaction> transfers;
     public void transfer(TransactionDto tDto) throws ServiceException {
