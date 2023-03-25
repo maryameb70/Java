@@ -4,18 +4,17 @@ import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 @Service
-public class TransferLocator {
+public class TransactionLocator extends CommonBaseTransaction{
     @Autowired
     private List<BaseTransaction> transfers;
-    @Autowired
-    private CardTransactionService service;
     public void transfer(TransactionDto tDto) throws ServiceException {
         boolean support = true;
         for (BaseTransaction transfer : transfers) {
             if (transfer.resolve(tDto)) {
-                service.transfer(tDto);
+                transfer.transfer(tDto);
                 support=true;
                 break;
             } else {
@@ -26,4 +25,10 @@ public class TransferLocator {
             throw new ServiceException("transfer_not_supported");
         }
     }
+
+    @Override
+    public Boolean resolve(TransactionDto dto) throws ServiceException {
+        return null;
+    }
+
 }

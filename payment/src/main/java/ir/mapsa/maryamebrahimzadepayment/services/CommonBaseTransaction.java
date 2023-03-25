@@ -2,20 +2,20 @@ package ir.mapsa.maryamebrahimzadepayment.services;
 
 import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
-import ir.mapsa.maryamebrahimzadepayment.models.Customer;
-import ir.mapsa.maryamebrahimzadepayment.models.Transaction;
+import ir.mapsa.maryamebrahimzadepayment.models.*;
 import ir.mapsa.maryamebrahimzadepayment.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
-public abstract class CommonBaseTransaction extends AbstractService<TransactionRepository, Transaction> implements BaseTransaction{
+public abstract class CommonBaseTransaction extends AbstractService<TransactionRepository, Transaction> implements BaseTransaction {
     @Autowired
-    protected CustomerService customerService;
+    protected BankInfoService bankInfoService;
 
-    protected Transaction saveTransaction(TransactionDto dto, Customer cSender, Customer cReceiver) {
+    protected Transaction saveTransaction(TransactionDto dto, BankInfo cSender, BankInfo cReceiver) {
         Transaction trxEntity = new Transaction();
         trxEntity.setReceiver(cReceiver);
         trxEntity.setSender(cSender);
@@ -26,10 +26,8 @@ public abstract class CommonBaseTransaction extends AbstractService<TransactionR
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void resolveTransaction(Customer sender, Customer receiver, Long amount) throws ServiceException {
-        customerService.withdraw(sender, amount);
-        customerService.deposit(receiver, amount);
+    protected void resolveTransaction(BankInfo sender, BankInfo receiver, Long amount) throws ServiceException {
+        bankInfoService.withdraw(sender, amount);
+        bankInfoService.deposit(receiver, amount);
     }
-
-
 }

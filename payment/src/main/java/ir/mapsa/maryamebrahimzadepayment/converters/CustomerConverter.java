@@ -2,10 +2,13 @@ package ir.mapsa.maryamebrahimzadepayment.converters;
 
 import ir.mapsa.maryamebrahimzadepayment.models.Customer;
 import ir.mapsa.maryamebrahimzadepayment.dto.CustomerDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerConverter implements BaseConverter<CustomerDto,Customer> {
+    @Autowired
+    private BankInfoConverter bankInfoConverter;
     @Override
     public Customer convertDto(CustomerDto d) {
         Customer e = new Customer();
@@ -16,10 +19,9 @@ public class CustomerConverter implements BaseConverter<CustomerDto,Customer> {
         e.setFirstName(d.getFirstName());
         e.setLastName(d.getLastName());
         e.setAge(d.getAge());
-        e.setBalance(d.getBalance());
-        e.setCardNumber(d.getCardNumber());
         e.setEmail(d.getEmail());
         e.setCustomerId(d.getCustomerId());
+        e.setBankInfos(bankInfoConverter.convertDto(d.getBankInfos()));
         return e;
     }
 
@@ -33,10 +35,9 @@ public class CustomerConverter implements BaseConverter<CustomerDto,Customer> {
         d.setFirstName(e.getFirstName());
         d.setLastName(e.getLastName());
         d.setAge(e.getAge());
-        d.setBalance(e.getBalance());
-        d.setCardNumber(e.getCardNumber());
         d.setEmail(e.getEmail());
         d.setCustomerId(e.getCustomerId());
+        d.setBankInfos(bankInfoConverter.convertEntity(e.getBankInfos()));
         return d;
     }
 }
