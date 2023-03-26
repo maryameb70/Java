@@ -1,0 +1,14 @@
+package org.mapsa.structural.adapter.example3;
+
+public class Square implements Shape {
+    private Integer width;
+
+    public Square(Integer width) {
+        this.width = width;
+    }
+
+    @Override
+    public double getArea() {
+        return width*width;
+    }
+}
