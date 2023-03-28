@@ -13,6 +13,7 @@ public class NewsChannel implements Channel{
 
     @Override
     public void update(Object o) {
-
+       // this.setNews(o.toString());
+        this.setNews(news);
     }
 }

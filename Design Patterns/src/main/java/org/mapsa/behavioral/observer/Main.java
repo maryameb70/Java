@@ -6,10 +6,11 @@ public class Main {
         NewsChannel observer = new NewsChannel();
 
         observable.addObserver(observer);
-        observable.setNews("news");
+        observable.setNews("news sport");
         assertEquals(observer.getNews(), "news");
     }
 
     private static void assertEquals(String news, String news1) {
     }
+
 }
