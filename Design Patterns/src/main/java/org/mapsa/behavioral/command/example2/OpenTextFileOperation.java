@@ -9,6 +9,7 @@ public class OpenTextFileOperation implements TextFileOperation{
 
     @Override
     public String execute() {
-        return textFile.open();
+        textFile.setName("Opening file");
+        return textFile.getName();
     }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuOptions {
-    private final List<ActionListenerCommand> listCommands= new ArrayList<>();
     private ActionListenerCommand clickOpen;
     private ActionListenerCommand clickSave;
 

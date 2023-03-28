@@ -7,9 +7,16 @@ public class TextFile {
         this.name = name;
     }
 
-    public String open() {
-        return "Opening file " + name;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+//    public String open() {
+//        return "Opening file " + name;
+//    }
 
     public String save() {
         return "Saving file " + name;
