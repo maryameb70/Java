@@ -42,7 +42,7 @@ public class BankInfoService extends AbstractService<BankInfoRepository, BankInf
 
     public String findByBankInfoId(String bankInfoId) throws ServiceException {
         BankInfo bankInfo=repository.findByBankInfoId(bankInfoId);
-        if(bankInfo==null){
+        if(bankInfo==null || bankInfo.getId()!=null){
             return bankInfoId;
         }
         throw new ServiceException("bank_info_id_repetitious");
