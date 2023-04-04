@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController extends AbstractController<Customer,CustomerDto,CustomerService> {
     @Autowired
     private CustomerService service;
-    @GetMapping("/{cardNumber}")
-    public long getBalance(@PathVariable("cardNumber") String card) throws ServiceException {
-        return service.accountBalance(card);
-    }
+//    @GetMapping("/{cardNumber}")
+//    public long getBalance(@PathVariable("cardNumber") String card) throws ServiceException {
+//        return service.accountBalance(card);
+//    }
 }
