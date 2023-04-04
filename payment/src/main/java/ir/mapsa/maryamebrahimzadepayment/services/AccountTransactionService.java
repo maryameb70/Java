@@ -2,37 +2,32 @@ package ir.mapsa.maryamebrahimzadepayment.services;
 
 import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
 import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
+import ir.mapsa.maryamebrahimzadepayment.models.BankInfo;
 import ir.mapsa.maryamebrahimzadepayment.models.Customer;
 import ir.mapsa.maryamebrahimzadepayment.models.Transaction;
 import ir.mapsa.maryamebrahimzadepayment.models.TransactionType;
-import ir.mapsa.maryamebrahimzadepayment.repositories.TransactionRepository;
 import ir.mapsa.maryamebrahimzadepayment.services.notifications.NotificationSender;
 import ir.mapsa.maryamebrahimzadepayment.services.notifications.NotificationText;
 import ir.mapsa.maryamebrahimzadepayment.services.notifications.NotificationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 
 @Service
 @Transactional(readOnly = true)
 public class AccountTransactionService extends CommonBaseTransaction {
     @Autowired
-    private CustomerService customerService;
-    @Autowired
     private NotificationSender notificationSender;
-    @Autowired
-    private TransactionRepository repository;
 
+    @Override
     @Transactional
     public void transfer(TransactionDto dto) throws ServiceException {
-        Customer cSender = customerService.findByAccountNumber(dto.getSource());
+        BankInfo cSender = bankInfoService.findByAccountNumber(dto.getSource());
         if (cSender == null) {
             throw new ServiceException("sender_is_not_valid");
         }
-        Customer cReceiver = customerService.findByAccountNumber(dto.getDestination());
+        BankInfo cReceiver = bankInfoService.findByAccountNumber(dto.getDestination());
         if (cReceiver == null) {
             throw new ServiceException("receiver_is_not_valid");
         }
@@ -44,8 +39,11 @@ public class AccountTransactionService extends CommonBaseTransaction {
         notificationSender.send(NotificationType.SMS, new NotificationText("plus", cReceiver.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
     }
 
-
-    public Boolean resolve(TransactionDto dto) {
+    @Override
+    public Boolean resolve(TransactionDto dto) throws ServiceException {
+        if (dto.getType() == null) {
+            throw new ServiceException("type_is_empty");
+        }
         return dto.getType().equals(TransactionType.ACCOUNTNUMBER);
     }
 }
