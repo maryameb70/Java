@@ -14,4 +14,5 @@ public class CustomerDto extends AbstractDto{
     private Integer age;
     private String email;
     private String customerId;
+    private List<BankInfoDto> bankInfos;
 }
