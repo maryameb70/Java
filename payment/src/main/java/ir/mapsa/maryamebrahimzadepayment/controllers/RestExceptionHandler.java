@@ -23,7 +23,7 @@ public class RestExceptionHandler {
     @PostConstruct
     public void init() {
         try {
-            properties.load(new FileReader("C:\\WorkProjects\\IdeaProjects\\Kelase-HalseTamrin\\MaryamEbrahimzade-Payment\\src\\main\\resources\\exceptions_fa_IR.properties", Charset.forName("utf-8")));
+            properties.load(new FileReader("/home/maryam/WorkProjects/IdeaProjects/Kelase-HalseTamrin/MaryamEbrahimzade-Payment/src/main/resources/exceptions_fa_IR.properties", Charset.forName("utf-8")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
