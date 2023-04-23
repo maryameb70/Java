@@ -2,6 +2,7 @@ package org.mapsa.cretional.singleton;
 
 public class Singleton {
     private static Singleton instance;
+  //  private static final Object instance2=new Object();
 
     private Singleton() {
 

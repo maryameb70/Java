@@ -22,20 +22,20 @@ public class CardTransactionService extends CommonBaseTransaction {
     @Override
     @Transactional
     public void transfer(TransactionDto dto) throws ServiceException {
-        BankInfo cSender = bankInfoService.findByCardNumber(dto.getSource());
-        if (cSender == null) {
+        BankInfo sender = bankInfoService.findByCardNumber(dto.getSource());
+        if (sender == null) {
             throw new ServiceException("sender_is_not_valid");
         }
-        BankInfo cReceiver = bankInfoService.findByCardNumber(dto.getDestination());
-        if (cReceiver == null) {
+        BankInfo receiver = bankInfoService.findByCardNumber(dto.getDestination());
+        if (receiver == null) {
             throw new ServiceException("receiver_is_not_valid");
         }
-        resolveTransaction(cSender, cReceiver, dto.getAmount());
+        resolveTransaction(sender, receiver, dto.getAmount());
 
-        Transaction trxEntity = saveTransaction(dto, cSender, cReceiver);
+        Transaction trxEntity = saveTransaction(dto, sender, receiver);
 
-        notificationSender.send(NotificationType.EMAIL, new NotificationText("kasr ", cSender.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
-        notificationSender.send(NotificationType.SMS, new NotificationText("plus", cReceiver.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
+        notificationSender.send(NotificationType.EMAIL, new NotificationText("kasr ", sender.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
+        notificationSender.send(NotificationType.SMS, new NotificationText("plus", receiver.getCardNumber(), dto.getAmount(), trxEntity.getDate()));
     }
 
     @Override
