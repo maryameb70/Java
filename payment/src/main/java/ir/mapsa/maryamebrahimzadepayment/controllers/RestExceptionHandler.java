@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,7 +24,7 @@ public class RestExceptionHandler {
     @PostConstruct
     public void init() {
         try {
-            properties.load(new FileReader("/home/maryam/WorkProjects/IdeaProjects/Kelase-HalseTamrin/MaryamEbrahimzade-Payment/src/main/resources/exceptions_fa_IR.properties", Charset.forName("utf-8")));
+            properties.load(new FileReader("/home/maryam/Java/payment/src/main/resources/exceptions_fa_IR.properties", Charset.forName("utf-8")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +48,15 @@ public class RestExceptionHandler {
         ExceptionResponse value = new ExceptionResponse();
         value.setError(true);
         value.setMessage(properties.getProperty("unknown"));
+        return ResponseEntity.badRequest().body(value);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionResponse> handleException(HttpMessageNotReadableException exception) {
+        ExceptionResponse value = new ExceptionResponse();
+        value.setError(true);
+        value.setMessage(properties.getProperty("the_input_data_is_incorrect"));
         return ResponseEntity.badRequest().body(value);
     }
 }
