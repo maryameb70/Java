@@ -21,6 +21,7 @@ public abstract class CommonBaseTransaction extends AbstractService<TransactionR
         trxEntity.setSender(cSender);
         trxEntity.setDate(new Date());
         trxEntity.setAmount(dto.getAmount());
+        trxEntity.setTransactionId(dto.getTransactionId());
         repository.save(trxEntity);
         return trxEntity;
     }
