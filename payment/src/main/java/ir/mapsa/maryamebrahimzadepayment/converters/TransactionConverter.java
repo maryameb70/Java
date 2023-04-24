@@ -1,22 +1,27 @@
 package ir.mapsa.maryamebrahimzadepayment.converters;
 
 import ir.mapsa.maryamebrahimzadepayment.dto.TransactionDto;
-import ir.mapsa.maryamebrahimzadepayment.exceptions.ServiceException;
 import ir.mapsa.maryamebrahimzadepayment.models.Transaction;
+import ir.mapsa.maryamebrahimzadepayment.services.BankInfoService;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
-public interface TransactionConverter extends BaseConverter<TransactionDto, Transaction> {
-    @Mapping(source = "d.source", target = "sender.cardNumber")
-    @Mapping(source = "d.destination", target = "receiver.cardNumber")
-    Transaction convertDto(TransactionDto d) throws ServiceException;
+public abstract class TransactionConverter implements BaseConverter<TransactionDto, Transaction> {
+    @Autowired
+    private BankInfoService bankInfoService;
 
-    @Mapping(source = "sender.cardNumber", target = "source")
-    @Mapping(source = "receiver.cardNumber", target = "destination")
-    TransactionDto convertEntity(Transaction e);
-    //    @Autowired
-//    private BankInfoRepository bankInfo;
-
+    @AfterMapping
+    public void afterSet(@MappingTarget TransactionDto d, Transaction e) {
+        d.setSource(e.getSender().getCardNumber());
+        d.setDestination(e.getReceiver().getCardNumber());
+    }
+    @AfterMapping
+    public void afterSet(@MappingTarget Transaction e,TransactionDto d) {
+        e.setSender(bankInfoService.findByCardNumber(d.getSource()));
+        e.setReceiver(bankInfoService.findByCardNumber(d.getDestination()));
+    }
 
 }
