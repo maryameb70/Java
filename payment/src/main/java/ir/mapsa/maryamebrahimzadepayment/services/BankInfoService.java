@@ -23,15 +23,6 @@ public class BankInfoService extends AbstractService<BankInfoRepository, BankInf
         repository.save(customer);
     }
 
-    public Long accountBalance(String cardNumber) throws ServiceException {
-        BankInfo customer = repository.findByCardNumber(cardNumber);
-        if (customer != null) {
-            return customer.getBalance();
-        } else {
-            throw new ServiceException("user_not_found");
-        }
-    }
-
     public BankInfo findByCardNumber(String cardNumber) {
         return repository.findByCardNumber(cardNumber);
     }
@@ -47,6 +38,16 @@ public class BankInfoService extends AbstractService<BankInfoRepository, BankInf
         }
         return bankInfoId;
     }
+
+    public Long accountBalance(String cardNumber) throws ServiceException {
+        BankInfo customer = repository.findByCardNumber(cardNumber);
+        if (customer != null) {
+            return customer.getBalance();
+        } else {
+            throw new ServiceException("user_not_found");
+        }
+    }
+
 
     public BankInfo getById(Long id) throws ServiceException {
         Optional<BankInfo> customer = repository.findById(id);
