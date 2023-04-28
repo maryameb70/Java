@@ -134,33 +134,4 @@ class FirstTestApplicationTests {
         org.assertj.core.api.Assertions.assertThat(updateEmployee.getFirstName()).isEqualTo("maryam");
     }
 
-//    JunitTestCaseExample obj = new JunitTestCaseExample();
-//
-//    @Test
-//    public void testAddReturnCorrectNumberOfAddedItems() throws Exception {
-//        obj.add("Emma");
-//        obj.add("Ronan");
-//        obj.add("Antonio");
-//        obj.add("Paul");
-//        Assertions.assertEquals(4, obj.sizeOfStudent(), "Adding 4 student to list");
-//    }
-//
-//    @Test
-//    public void testDivideReturnCorrectAnswer() throws Exception {
-//        org.assertj.core.api.Assertions.assertThat(divide(6, 3)).isEqualTo(2f);
-//    }
-//
-//    @Test
-//    public void testDivideThrowsCorrectException() {
-//        org.assertj.core.api.Assertions.assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-//            divide(100, 0);
-//        });
-//    }
-//
-//    public float divide(int a, int b) {
-//        if (b == 0) {
-//            throw new IllegalArgumentException();
-//        }
-//        return (float) a / b;
-//    }
 }
