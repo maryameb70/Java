@@ -66,7 +66,8 @@ class FirstTestApplicationTests {
         List<Employee> employeeList = employeeRepository.findAll();
         //Assertion
         org.assertj.core.api.Assertions.assertThat(employeeList).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(employeeList.size()).isEqualTo(0);
+        //org.assertj.core.api.Assertions.assertThat(employeeList.size()).isEqualTo(0);
+        Assertions.assertEquals(employeeList.size(),0);
     }
 
     //Test for get all employees operation
