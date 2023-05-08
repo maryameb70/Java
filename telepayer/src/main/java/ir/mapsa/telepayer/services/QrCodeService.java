@@ -29,7 +29,6 @@ public class QrCodeService extends AbstractService<QRCodeRepository, QRCode> {
         if (merchant == null) {
             throw new ServiceException("This_merchandise_is_not_registered_in_the_system");
         }
-       // String qrCodeText = "https://www.journaldev.com";
         String qrCodeText = String.valueOf(saveQrCode(dto));
         String filePath = "JD.png";
         int size = 125;
