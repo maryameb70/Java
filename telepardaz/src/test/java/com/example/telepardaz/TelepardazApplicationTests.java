@@ -1,10 +1,10 @@
-package ir.mapsa.telepayer;
+package com.example.telepardaz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TelepayerApplicationTests {
+class TelepardazApplicationTests {
 
     @Test
     void contextLoads() {

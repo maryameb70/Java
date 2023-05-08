@@ -13,9 +13,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class AuthenticationController extends AbstractController<User, UserDto, AuthenticationService> {
-    @PostMapping
+    @PostMapping("/register")
     public void add(@RequestBody UserDto dto) throws ServiceException, NoSuchAlgorithmException, InvalidKeySpecException {
         service.register(dto);
     }
