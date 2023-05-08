@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/merchant")
+@RequestMapping("/tele")
 public class MerchantController extends AbstractController<Merchant, MerchantDto, MerchantService> {
     @Autowired
     private QrCodeService qrCodeService;
