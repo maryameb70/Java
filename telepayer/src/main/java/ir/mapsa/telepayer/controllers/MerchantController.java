@@ -1,5 +1,6 @@
 package ir.mapsa.telepayer.controllers;
 
+import com.google.zxing.WriterException;
 import ir.mapsa.telepayer.dto.MerchantDto;
 import ir.mapsa.telepayer.dto.QRCodeDto;
 import ir.mapsa.telepayer.exceptions.ServiceException;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/tele")
@@ -25,7 +28,7 @@ public class MerchantController extends AbstractController<Merchant, MerchantDto
 
     @PostMapping("/qrcode")
     @Transactional
-    public void createQr(@Validated @RequestBody QRCodeDto dto) throws ServiceException {
+    public void createQr(@Validated @RequestBody QRCodeDto dto) throws ServiceException, IOException, WriterException {
         qrCodeService.createQRCode(dto);
     }
 
