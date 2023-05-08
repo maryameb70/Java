@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Objects;
-
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MerchantOrderItemDto extends AbstractDto {
     @NotNull(message = "Entering this field is required")
     private String name ;

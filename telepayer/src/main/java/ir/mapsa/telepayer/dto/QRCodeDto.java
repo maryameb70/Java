@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class QRCodeDto extends AbstractDto {
     @NotEmpty(message = "merchantPaymentId is required")
     @Size(max = 64, message = "maximum 64 characters are allowed for merchantPaymentId")
