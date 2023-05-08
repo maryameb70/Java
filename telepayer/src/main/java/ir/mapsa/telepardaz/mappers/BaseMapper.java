@@ -1,12 +1,12 @@
-package ir.mapsa.telepayer.converters;
+package ir.mapsa.telepardaz.mappers;
 
 
-import ir.mapsa.telepayer.exceptions.ServiceException;
+import ir.mapsa.telepardaz.exceptions.ServiceException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface BaseConverter <D,E>{
+public interface BaseMapper<D,E>{
     E convertDto(D d) throws ServiceException;
     D convertEntity(E e);
 

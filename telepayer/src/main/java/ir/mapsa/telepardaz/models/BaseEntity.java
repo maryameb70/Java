@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.models;
+package ir.mapsa.telepardaz.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 @ToString
-public abstract class AbstractEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

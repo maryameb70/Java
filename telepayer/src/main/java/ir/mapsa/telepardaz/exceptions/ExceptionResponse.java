@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.exceptions;
+package ir.mapsa.telepardaz.exceptions;
 
 import lombok.Data;
 

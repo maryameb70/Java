@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.models;
+package ir.mapsa.telepardaz.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Merchant extends AbstractEntity{
+public class Merchant extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false)

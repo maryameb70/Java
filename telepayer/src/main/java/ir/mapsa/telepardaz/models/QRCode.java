@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.models;
+package ir.mapsa.telepardaz.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,12 +12,12 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QRCode extends AbstractEntity{
+public class QRCode extends BaseEntity {
     @Column(name = "merchantPaymentId")
     private String merchantPaymentId;
 
     @Column(name ="amount")
-    private Integer amount ;
+    private Long amount ;
 
     @Column(name ="orderDescription")
     private String orderDescription;
@@ -27,7 +27,7 @@ public class QRCode extends AbstractEntity{
     private List<MerchantOrderItem> orderItems ;
 
     @Column(name ="metadata")
-    private Object metadata ;
+    private String metadata ;
 
     @Column(name ="codeType")
     private String codeType;

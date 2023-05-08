@@ -1,13 +1,13 @@
-package ir.mapsa.telepayer.services;
+package ir.mapsa.telepardaz.services;
 
-import ir.mapsa.telepayer.dto.MerchantDto;
-import ir.mapsa.telepayer.exceptions.ServiceException;
-import ir.mapsa.telepayer.models.Merchant;
-import ir.mapsa.telepayer.repositories.MerchantRepository;
+import ir.mapsa.telepardaz.exceptions.ServiceException;
+import ir.mapsa.telepardaz.repositories.MerchantRepository;
+import ir.mapsa.telepardaz.dto.MerchantDto;
+import ir.mapsa.telepardaz.models.Merchant;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MerchantService extends AbstractService<MerchantRepository, Merchant> {
+public class MerchantService extends BaseService<MerchantRepository, Merchant> {
     public void createMerchant(Merchant merchant) throws ServiceException {
         MerchantDto dto = new MerchantDto();
         Merchant existingMerchant = repository.findByUsername(dto.getUsername());

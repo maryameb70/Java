@@ -1,14 +1,12 @@
-package ir.mapsa.telepayer.dto;
+package ir.mapsa.telepardaz.dto;
 
-import ir.mapsa.telepayer.models.MerchantOrderItem;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.Objects;
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MerchantOrderItemDto extends AbstractDto {
+public class MerchantOrderItemDto extends BaseDto {
     @NotNull(message = "Entering this field is required")
     private String name ;
     private String category ;
@@ -17,5 +15,5 @@ public class MerchantOrderItemDto extends AbstractDto {
     private Integer quantity ;
     private String productId ;
     @NotNull(message = "Entering this field is required")
-    private Integer unitPrice;
+    private Long unitPrice;
 }

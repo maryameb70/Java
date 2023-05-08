@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.dto;
+package ir.mapsa.telepardaz.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MerchantDto extends AbstractDto {
+public class MerchantDto extends BaseDto {
     @NotNull(message = "Entering this field is required")
     @Pattern(regexp = "^([a-zA-Z]|\\s){3,10}$",message = "your username must be between 3 and 10 characters long.")
     private String username;
@@ -26,6 +26,7 @@ public class MerchantDto extends AbstractDto {
     @NotNull(message = "Entering this field is required")
     @Pattern(regexp = "^\\d{16}$",message = "Use only 8 digits for your cardNumber")
     private String cardNumber;
+    @NotNull
     private String merchantId;
 
 }

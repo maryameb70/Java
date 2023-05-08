@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.exceptions;
+package ir.mapsa.telepardaz.exceptions;
 
 public class IdNotFoundException extends ServiceException {
     public IdNotFoundException(String errorCode) {

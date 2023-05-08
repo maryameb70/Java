@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.exceptions;
+package ir.mapsa.telepardaz.exceptions;
 
 public class ServiceException extends Exception{
     private final String errorCode;

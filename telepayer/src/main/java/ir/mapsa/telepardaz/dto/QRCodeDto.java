@@ -1,10 +1,6 @@
-package ir.mapsa.telepayer.dto;
+package ir.mapsa.telepardaz.dto;
 
-import ir.mapsa.telepayer.models.AbstractEntity;
-import ir.mapsa.telepayer.models.MerchantOrderItem;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import ir.mapsa.telepardaz.models.MerchantOrderItem;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,20 +11,20 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QRCodeDto extends AbstractDto {
+public class QRCodeDto extends BaseDto {
     @NotEmpty(message = "merchantPaymentId is required")
     @Size(max = 64, message = "maximum 64 characters are allowed for merchantPaymentId")
     private String merchantPaymentId ;
 
     @NotNull(message = "amount is required")
-    private Integer amount ;
+    private Long amount ;
 
     @Size(max =255 ,message = "maximum 255 characters allowed for orderDescription")
     private String orderDescription ;
 
     private List<MerchantOrderItem> orderItems;
 
-    private Object metadata;
+    private String metadata;
 
     @NotEmpty(message = "codeType is required")
     private String codeType ;

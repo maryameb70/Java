@@ -1,8 +1,8 @@
-package ir.mapsa.telepayer.controllers;
+package ir.mapsa.telepardaz.controllers;
 
-import ir.mapsa.telepayer.converters.BaseConverter;
-import ir.mapsa.telepayer.exceptions.ServiceException;
-import ir.mapsa.telepayer.services.AbstractService;
+import ir.mapsa.telepardaz.mappers.BaseMapper;
+import ir.mapsa.telepardaz.exceptions.ServiceException;
+import ir.mapsa.telepardaz.services.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +13,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public abstract class AbstractController<E,D,S extends AbstractService<? extends JpaRepository<E,Long>,E>> {
+public abstract class BaseController<E,D,S extends BaseService<? extends JpaRepository<E,Long>,E>> {
     @Autowired
     protected S service;
     @Autowired
-    protected BaseConverter<D,E> converter;
+    protected BaseMapper<D,E> converter;
 
     @PostMapping
     @Transactional

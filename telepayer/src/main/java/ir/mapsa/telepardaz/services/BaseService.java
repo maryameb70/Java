@@ -1,8 +1,8 @@
-package ir.mapsa.telepayer.services;
+package ir.mapsa.telepardaz.services;
 
 
-import ir.mapsa.telepayer.exceptions.IdNotFoundException;
-import ir.mapsa.telepayer.exceptions.ServiceException;
+import ir.mapsa.telepardaz.exceptions.IdNotFoundException;
+import ir.mapsa.telepardaz.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractService<R extends JpaRepository<E,Long>,E> {
+public abstract class BaseService<R extends JpaRepository<E,Long>,E> {
     @Autowired
     protected R repository;
 

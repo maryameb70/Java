@@ -1,4 +1,4 @@
-package ir.mapsa.telepayer.models;
+package ir.mapsa.telepardaz.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class MerchantOrderItem extends AbstractEntity {
+public class MerchantOrderItem extends BaseEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "category")
@@ -25,5 +25,5 @@ public class MerchantOrderItem extends AbstractEntity {
     private String productId;
 
     @Column(name = "unitPrice")
-    private Integer unitPrice;
+    private Long unitPrice;
 }
