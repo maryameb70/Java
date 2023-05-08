@@ -2,6 +2,7 @@ package com.example.telepardaz.services;
 
 import com.example.telepardaz.dto.QRCodeDto;
 import com.example.telepardaz.exceptions.ServiceException;
+import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.models.QRCode;
 import com.example.telepardaz.repositories.QRCodeRepository;
 import com.google.zxing.BarcodeFormat;
@@ -19,10 +20,10 @@ import java.awt.image.BufferedImage;
 public class QrCodeService extends BaseService<QRCodeRepository, QRCode> {
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
-//        Merchant merchant = repository.findByMerchantPaymentId(dto.getMerchantPaymentId());
-//        if (merchant == null) {
-//            throw new ServiceException("This_merchandise_is_not_registered_in_the_system");
-//        }
+        Merchant merchant = repository.findByMerchantPaymentId(dto.getMerchantPaymentId());
+        if (merchant == null) {
+            throw new ServiceException("This_merchandise_is_not_registered_in_the_system");
+        }
         QRCode qrCode=saveQrCode(dto);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(qrCode), BarcodeFormat.QR_CODE, 200, 200);
