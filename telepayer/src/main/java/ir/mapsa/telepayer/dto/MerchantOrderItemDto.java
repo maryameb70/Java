@@ -1,6 +1,5 @@
 package ir.mapsa.telepayer.dto;
 
-import ir.mapsa.telepayer.models.AbstractEntity;
 import ir.mapsa.telepayer.models.MerchantOrderItem;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +8,7 @@ import lombok.*;
 import java.util.Objects;
 
 @Data
-public class MerchantOrderItemDto extends AbstractEntity {
+public class MerchantOrderItemDto extends AbstractDto {
     @NotNull(message = "Entering this field is required")
     private String name ;
     private String category ;

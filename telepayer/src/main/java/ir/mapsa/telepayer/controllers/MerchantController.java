@@ -4,7 +4,6 @@ import ir.mapsa.telepayer.dto.MerchantDto;
 import ir.mapsa.telepayer.dto.QRCodeDto;
 import ir.mapsa.telepayer.exceptions.ServiceException;
 import ir.mapsa.telepayer.models.Merchant;
-import ir.mapsa.telepayer.models.QRCode;
 import ir.mapsa.telepayer.services.MerchantService;
 import ir.mapsa.telepayer.services.QrCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
