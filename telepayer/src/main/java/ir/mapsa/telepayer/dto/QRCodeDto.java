@@ -28,7 +28,6 @@ public class QRCodeDto extends AbstractDto {
 
     private List<MerchantOrderItem> orderItems;
 
-    @Column(name ="metadata")
     private Object metadata;
 
     @NotEmpty(message = "codeType is required")

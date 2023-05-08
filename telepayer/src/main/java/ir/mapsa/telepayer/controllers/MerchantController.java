@@ -28,7 +28,7 @@ public class MerchantController extends AbstractController<Merchant, MerchantDto
 
     @PostMapping("/qrcode")
     @Transactional
-    public void createQr(@Validated @RequestBody QRCodeDto dto) throws ServiceException, IOException, WriterException {
+    public void createQr( @RequestBody QRCodeDto dto) throws ServiceException, IOException, WriterException {
         qrCodeService.createQRCode(dto);
     }
 

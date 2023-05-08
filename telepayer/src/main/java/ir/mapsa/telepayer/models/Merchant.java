@@ -11,18 +11,18 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Merchant extends AbstractEntity{
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String username;
-    @Column(nullable = false)
+    @Column
     private String password;
-    @Column(nullable = false)
+    @Column
     private String firstName;
-    @Column(nullable = false)
+    @Column
     private String lastName;
-    @Column(nullable = false)
+    @Column
     private String accountNumber;
-    @Column(nullable = false)
+    @Column
     private String cardNumber;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String merchantId;
 }

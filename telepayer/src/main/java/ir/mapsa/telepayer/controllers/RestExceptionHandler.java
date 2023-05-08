@@ -57,16 +57,16 @@ public class RestExceptionHandler {
         return ResponseEntity.badRequest().body(value);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exception) {
-        LOGGER.error("Validation exception occurred!", exception);
-        ExceptionResponse value = new ExceptionResponse();
-        value.setError(true);
-        FieldError fieldError = exception.getBindingResult().getFieldError();
-        String message = "Error in field : "+ fieldError.getDefaultMessage();
-        value.setMessage(message);
-        return ResponseEntity.badRequest().body(value);
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exception) {
+//        LOGGER.error("Validation exception occurred!", exception);
+//        ExceptionResponse value = new ExceptionResponse();
+//        value.setError(true);
+//        FieldError fieldError = exception.getBindingResult().getFieldError();
+//        String message = "Error in field : "+ fieldError.getDefaultMessage();
+//        value.setMessage(message);
+//        return ResponseEntity.badRequest().body(value);
+//    }
 
 }
