@@ -1,6 +1,5 @@
 package com.example.telepardaz.services;
 
-import com.example.telepardaz.dto.MerchantDto;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.repositories.MerchantRepository;

@@ -20,8 +20,5 @@ public class TelepardazApplication {
     public static void main(String[] args) {
         SpringApplication.run(TelepardazApplication.class, args);
     }
-    @Bean
-    public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
-        return new BufferedImageHttpMessageConverter();
-    }
+
 }

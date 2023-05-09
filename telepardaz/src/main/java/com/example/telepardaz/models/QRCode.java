@@ -17,7 +17,7 @@ public class QRCode extends BaseEntity {
     //    @Column(name = "merchantId")
 //    private String merchantId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
+    @JoinColumn(name = "merchant_id")
     private Merchant merchants;
 
     @Column(name = "amount")
