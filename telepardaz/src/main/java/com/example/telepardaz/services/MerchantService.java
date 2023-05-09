@@ -13,19 +13,19 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
     }
 
     public void createMerchant(Merchant merchant) throws ServiceException {
-        MerchantDto dto = new MerchantDto();
-        Merchant existingMerchant = repository.findByUsername(dto.getUsername());
+        Merchant existingMerchant = repository.findByUsername(merchant.getUsername());
         if (existingMerchant != null) {
             throw new ServiceException("This_merchant_exists_in_the_system");
         }
-        merchant.setUsername(dto.getUsername());
-        merchant.setPassword(dto.getPassword());
-        merchant.setFirstName(dto.getFirstName());
-        merchant.setLastName(dto.getLastName());
-        merchant.setAccountNumber(dto.getAccountNumber());
-        merchant.setCardNumber(dto.getCardNumber());
+        Merchant entity = new Merchant();
+        entity.setUsername(merchant.getUsername());
+        entity.setPassword(merchant.getPassword());
+        entity.setFirstName(merchant.getFirstName());
+        entity.setLastName(merchant.getLastName());
+        entity.setAccountNumber(merchant.getAccountNumber());
+        entity.setCardNumber(merchant.getCardNumber());
 //        merchant.setQrCode(dto.getQrCode());
-        repository.save(merchant);
+        repository.save(entity);
     }
 
 }
