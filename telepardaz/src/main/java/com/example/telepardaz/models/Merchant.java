@@ -3,6 +3,8 @@ package com.example.telepardaz.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name ="merchants")
 @Data
@@ -23,10 +25,7 @@ public class Merchant extends BaseEntity {
     private String accountNumber;
     @Column(nullable = false)
     private String cardNumber;
-//    @Column(unique = true, nullable = false)
-//    private String merchantId;
 
-    @OneToOne(mappedBy = "merchants",cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private QRCode qrCode;
+    @OneToMany(mappedBy = "merchant")
+    private List<QrRCode> qrCodes;
 }

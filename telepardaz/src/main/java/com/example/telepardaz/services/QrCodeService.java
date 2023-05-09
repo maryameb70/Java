@@ -1,9 +1,10 @@
 package com.example.telepardaz.services;
 
 import com.example.telepardaz.dto.QRCodeDto;
+import com.example.telepardaz.dto.TransferDto;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
-import com.example.telepardaz.models.QRCode;
+import com.example.telepardaz.models.QrRCode;
 import com.example.telepardaz.repositories.QRCodeRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -16,38 +17,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.util.Optional;
 
 @Service
-public class QrCodeService extends BaseService<QRCodeRepository, QRCode> {
+public class QrCodeService extends BaseService<QRCodeRepository, QrRCode> {
 
     @Autowired
     private MerchantService merchantService;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
-//        String user=dto.getMerchants().getUsername();
-//        Merchant merchant = merchantService.findByMerchant(dto.getMerchants().getUsername());
-//        if (merchant == null) {
-//            throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
-//        }
-        QRCode qrCode = saveQrCode(dto);
+        Optional<Merchant> merchant = merchantService.findById(dto.getMerchantId());
+        if (merchant.isEmpty()) {
+            throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
+        }
+        QrRCode qrCode = saveQrCode(dto, merchant);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(qrCode), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
-    private QRCode saveQrCode(QRCodeDto dto) {
-        QRCode qrCode = new QRCode();
-        if (dto.getAmount() != 0) {
-            qrCode.setIsAuthorization(true);
-        }
-        qrCode.setMerchants(dto.getMerchants());
+    private QrRCode saveQrCode(QRCodeDto dto, Optional<Merchant> merchant) {
+        QrRCode qrCode = new QrRCode();
+//        if (dto.getAmount() != 0) {
+//            qrCode.setIsAuthorization(true);
+//        }
+        qrCode.setMerchant(merchant.get());
         qrCode.setAmount(dto.getAmount());
-        qrCode.setOrderDescription(dto.getOrderDescription());
-        qrCode.setOrderItems(dto.getOrderItems());
-        qrCode.setMetadata(dto.getMetadata());
         qrCode.setCodeType(dto.getCodeType());
-        qrCode.setStoreInfo(dto.getStoreInfo());
-        qrCode.setStoreId(dto.getStoreId());
         qrCode.setTerminalId(dto.getTerminalId());
         qrCode.setRequestedAt(dto.getRequestedAt());
         qrCode.setAuthorizationExpiry(dto.getAuthorizationExpiry());
@@ -60,4 +56,7 @@ public class QrCodeService extends BaseService<QRCodeRepository, QRCode> {
         return new ResponseEntity<>(image, HttpStatus.OK);
     }
 
+    public void transfer(TransferDto transferDto) throws ServiceException  {
+
+    }
 }

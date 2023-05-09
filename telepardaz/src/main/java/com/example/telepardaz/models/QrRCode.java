@@ -13,34 +13,16 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QRCode extends BaseEntity {
-    //    @Column(name = "merchantId")
-//    private String merchantId;
-    @OneToOne(cascade = CascadeType.ALL)
+public class QrRCode extends BaseEntity {
+    @ManyToOne
     @JoinColumn(name = "merchant_id")
-    private Merchant merchants;
+    private Merchant merchant;
 
     @Column(name = "amount")
     private Long amount;
 
-    @Column(name = "orderDescription")
-    private String orderDescription;
-
-    @Column(name = "orderItems")
-    @OneToMany
-    private List<MerchantOrderItem> orderItems;
-
-    @Column(name = "metadata")
-    private String metadata;
-
     @Column(name = "codeType")
-    private String codeType;
-
-    @Column(name = "storeInfo")
-    private String storeInfo;
-
-    @Column(name = "storeId")
-    private String storeId;
+    private String codeType="ORDER_QR";
 
     @Column(name = "terminalId")
     private String terminalId;

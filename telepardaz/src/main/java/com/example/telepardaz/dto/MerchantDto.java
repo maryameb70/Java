@@ -1,10 +1,12 @@
 package com.example.telepardaz.dto;
 
-import com.example.telepardaz.models.QRCode;
+import com.example.telepardaz.models.QrRCode;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -27,8 +29,4 @@ public class MerchantDto extends BaseDto {
     @NotNull(message = "Entering this field is required")
     @Pattern(regexp = "^\\d{16}$", message = "Use only 8 digits for your cardNumber")
     private String cardNumber;
-    //    @NotNull
-//    private String merchantId;
-    private QRCode qrCode;
-
 }
