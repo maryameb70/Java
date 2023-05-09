@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 @RequestMapping("/qrcode")
 public class QrCodeController extends BaseController<QRCode, QRCodeDto, QrCodeService> {
 
-    @PostMapping(produces = MediaType.IMAGE_PNG_VALUE)
+    @PostMapping(value = "/add",produces = MediaType.IMAGE_PNG_VALUE)
     @Transactional
     public ResponseEntity<BufferedImage> createQrCode(@Valid @RequestBody QRCodeDto dto) throws ServiceException, WriterException {
         return service.okResponse(service.generateQRCodeImage(dto));

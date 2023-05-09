@@ -24,10 +24,10 @@ public class QrCodeService extends BaseService<QRCodeRepository, QRCode> {
     private MerchantService merchantService;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
-        Merchant merchant = merchantService.findByMerchant(dto.getMerchants().getUsername());
-        if (merchant == null) {
-            throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
-        }
+//        Merchant merchant = merchantService.findByMerchant(dto.getMerchants().getUsername());
+//        if (merchant == null) {
+//            throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
+//        }
         QRCode qrCode = saveQrCode(dto);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(qrCode), BarcodeFormat.QR_CODE, 200, 200);

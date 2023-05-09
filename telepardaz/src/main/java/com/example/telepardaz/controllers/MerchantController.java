@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/merchant")
 public class MerchantController extends BaseController<Merchant, MerchantDto, MerchantService> {
 
-    @PostMapping
+    @PostMapping("/add")
     @Transactional
     public void createMerchant( @RequestBody MerchantDto dto) throws ServiceException {
         service.createMerchant(mapper.convertDto(dto));
