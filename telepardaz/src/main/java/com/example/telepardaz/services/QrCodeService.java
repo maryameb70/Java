@@ -30,8 +30,7 @@ public class QrCodeService extends BaseService<QRCodeRepository, QRCode> {
         }
         QRCode qrCode = saveQrCode(dto);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
-        String firstname=qrCode.getMerchants().getFirstName();
-        BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(firstname), BarcodeFormat.QR_CODE, 200, 200);
+        BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(qrCode), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
