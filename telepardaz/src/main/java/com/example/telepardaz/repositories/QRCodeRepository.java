@@ -5,5 +5,5 @@ import com.example.telepardaz.models.QRCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QRCodeRepository extends JpaRepository<QRCode, Long> {
-    Merchant findByMerchantPaymentId(String merchantId);
+    QRCode findByMerchants(Long  id);
 }

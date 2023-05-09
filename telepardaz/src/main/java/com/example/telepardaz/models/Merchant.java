@@ -23,6 +23,10 @@ public class Merchant extends BaseEntity {
     private String accountNumber;
     @Column(nullable = false)
     private String cardNumber;
-    @Column(unique = true, nullable = false)
-    private String merchantId;
+//    @Column(unique = true, nullable = false)
+//    private String merchantId;
+
+    @OneToOne(mappedBy = "merchants",cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private QRCode qrCode;
 }

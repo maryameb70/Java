@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.Instant;
 import java.util.List;
+
 @Entity
 @Table(name = "qrcode")
 @Data
@@ -13,44 +14,47 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QRCode extends BaseEntity {
-    @Column(name = "merchantPaymentId")
-    private String merchantPaymentId;
+    //    @Column(name = "merchantId")
+//    private String merchantId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
+    private Merchant merchants;
 
-    @Column(name ="amount")
-    private Long amount ;
+    @Column(name = "amount")
+    private Long amount;
 
-    @Column(name ="orderDescription")
+    @Column(name = "orderDescription")
     private String orderDescription;
 
-    @Column(name ="orderItems")
+    @Column(name = "orderItems")
     @OneToMany
-    private List<MerchantOrderItem> orderItems ;
+    private List<MerchantOrderItem> orderItems;
 
-    @Column(name ="metadata")
-    private String metadata ;
+    @Column(name = "metadata")
+    private String metadata;
 
-    @Column(name ="codeType")
+    @Column(name = "codeType")
     private String codeType;
 
-    @Column(name ="storeInfo")
-    private String storeInfo ;
+    @Column(name = "storeInfo")
+    private String storeInfo;
 
-    @Column(name ="storeId")
-    private String storeId ;
+    @Column(name = "storeId")
+    private String storeId;
 
-    @Column(name ="terminalId")
-    private String terminalId ;
+    @Column(name = "terminalId")
+    private String terminalId;
 
-    @Column(name ="requestedAt")
+    @Column(name = "requestedAt")
     private Long requestedAt = Instant.now().getEpochSecond();
 
-    @Column(name ="isAuthorization")
-    private Boolean isAuthorization ;
+    @Column(name = "isAuthorization")
+    private Boolean isAuthorization;
 
-    @Column(name ="authorizationExpiry")
-    private Long authorizationExpiry ;
+    @Column(name = "authorizationExpiry")
+    private Long authorizationExpiry;
 
-    @Column(name ="redirectUrl")
-    private String redirectUrl ;
+    @Column(name = "redirectUrl")
+    private String redirectUrl;
 
- }
+}
