@@ -1,12 +1,9 @@
 package com.example.telepardaz.services;
 
 import com.example.telepardaz.dto.QRCodeDto;
-import com.example.telepardaz.dto.TransferDto;
 import com.example.telepardaz.exceptions.ServiceException;
-import com.example.telepardaz.mappers.MerchantMapper;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.models.QrCode;
-import com.example.telepardaz.repositories.MerchantRepository;
 import com.example.telepardaz.repositories.QRCodeRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -28,7 +25,7 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
         Merchant merchant = merchantService.findByMerchantId(dto.getMerchantId());
         if (merchant==null) {
-            throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
+            throw new ServiceException("this-merchandise-is-not-registered-in-the-system");
         }
         QrCode qrCode = saveQrCode(dto, merchant);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
@@ -50,22 +47,5 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
 
     public ResponseEntity<BufferedImage> okResponse(BufferedImage image) {
         return new ResponseEntity<>(image, HttpStatus.OK);
-    }
-
-    public void transfer(TransferDto transferDto) throws ServiceException {
-        QrCode qrCode = repository.findByQrCodeId(transferDto.getQrCodeId());
-        Merchant merchant =merchantService.findByMerchantId(qrCode.getMerchant().getMerchantId());
-
-                switch (transferDto.getTransferMethod()) {
-                    case TO_CARD -> { //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount())
-
-                    }
-                    case TO_ACCOUNT -> {
-                        //TODO Call depositOnBankWithAccountNumber(merchant.getAccountNumber(),transferDto.getAmount())
-                    }
-                    case TO_WALLET -> {
-                        //TODO Call depositOnBankWithWallet
-                    }
-                };
     }
 }
