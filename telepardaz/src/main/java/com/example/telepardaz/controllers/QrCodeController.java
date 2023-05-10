@@ -23,10 +23,4 @@ public class QrCodeController extends BaseController<QrCode, QRCodeDto, QrCodeSe
     public ResponseEntity<BufferedImage> createQrCode(@Valid @RequestBody QRCodeDto dto) throws ServiceException, WriterException {
         return service.okResponse(service.generateQRCodeImage(dto));
     }
-
-    @PostMapping("/transfer")
-    @Transactional
-    public void transfer(@RequestBody TransferDto transferDto) throws ServiceException  {
-        service.transfer(transferDto);
-    }
 }
