@@ -36,4 +36,8 @@ public class Merchant extends BaseEntity {
 
     @Column(unique = true)
     private String merchantId;
+
+    @Column(unique = true)
+    private Long userId;
+    
 }

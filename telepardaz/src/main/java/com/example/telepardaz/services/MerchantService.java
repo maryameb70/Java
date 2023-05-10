@@ -17,7 +17,6 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
             throw new ServiceException("this-merchant-exists-in-the-system");
         }
         saveMerchant(merchant);
-
     }
 
     private void saveMerchant(Merchant merchant) {
@@ -30,6 +29,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         entity.setCardNumber(merchant.getCardNumber());
         entity.setQrCodes(merchant.getQrCodes());
         entity.setMerchantId(merchant.getMerchantId());
+        entity.setUserId(merchant.getUserId());
         repository.save(entity);
     }
 
