@@ -16,5 +16,4 @@ public class MerchantController extends BaseController<Merchant, MerchantDto, Me
     public void createMerchant( @RequestBody MerchantDto dto) throws ServiceException {
         service.createMerchant(mapper.convertDto(dto));
     }
-
 }

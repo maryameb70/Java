@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MerchantService extends BaseService<MerchantRepository, Merchant> {
+    public Merchant findByMerchantId(String id) {
+        return repository.findByMerchantId(id);
+    }
 
     public void createMerchant(Merchant merchant) throws ServiceException {
         Merchant existingMerchant = repository.findByUsername(merchant.getUsername());
@@ -21,6 +24,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         entity.setAccountNumber(merchant.getAccountNumber());
         entity.setCardNumber(merchant.getCardNumber());
         entity.setQrCodes(merchant.getQrCodes());
+        entity.setMerchantId(merchant.getMerchantId());
         repository.save(entity);
 
     }

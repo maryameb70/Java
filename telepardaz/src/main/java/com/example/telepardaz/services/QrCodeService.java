@@ -3,8 +3,10 @@ package com.example.telepardaz.services;
 import com.example.telepardaz.dto.QRCodeDto;
 import com.example.telepardaz.dto.TransferDto;
 import com.example.telepardaz.exceptions.ServiceException;
+import com.example.telepardaz.mappers.MerchantMapper;
 import com.example.telepardaz.models.Merchant;
-import com.example.telepardaz.models.QrRCode;
+import com.example.telepardaz.models.QrCode;
+import com.example.telepardaz.repositories.MerchantRepository;
 import com.example.telepardaz.repositories.QRCodeRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -17,37 +19,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
-import java.util.Optional;
 
 @Service
-public class QrCodeService extends BaseService<QRCodeRepository, QrRCode> {
-
+public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     @Autowired
     private MerchantService merchantService;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
-        Optional<Merchant> merchant = merchantService.findById(dto.getMerchantId());
-        if (merchant.isEmpty()) {
+        Merchant merchant = merchantService.findByMerchantId(dto.getMerchantId());
+        if (merchant==null) {
             throw new ServiceException("this_merchandise_is_not_registered_in_the_system");
         }
-        QrRCode qrCode = saveQrCode(dto, merchant);
+        QrCode qrCode = saveQrCode(dto, merchant);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(qrCode), BarcodeFormat.QR_CODE, 200, 200);
+        StringBuffer infoSavedOnQr = new StringBuffer("QrCodeId:" + qrCode.getQrCodeId()).append("\n" + "MerchantId:").append(merchant.getMerchantId()).append("\n" + "MerchantFirstName:").append(merchant.getFirstName()).append("\n" + "MerchantLastName:").append(merchant.getLastName());
+        BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
-    private QrRCode saveQrCode(QRCodeDto dto, Optional<Merchant> merchant) {
-        QrRCode qrCode = new QrRCode();
-//        if (dto.getAmount() != 0) {
-//            qrCode.setIsAuthorization(true);
-//        }
-        qrCode.setMerchant(merchant.get());
+    private QrCode saveQrCode(QRCodeDto dto, Merchant merchant) {
+        QrCode qrCode = new QrCode();
+        qrCode.setMerchant(merchant);
         qrCode.setAmount(dto.getAmount());
         qrCode.setCodeType(dto.getCodeType());
         qrCode.setTerminalId(dto.getTerminalId());
-        qrCode.setRequestedAt(dto.getRequestedAt());
-        qrCode.setAuthorizationExpiry(dto.getAuthorizationExpiry());
-        qrCode.setRedirectUrl(dto.getRedirectUrl());
+        qrCode.setQrCodeId(dto.getQrCodeId());
         repository.save(qrCode);
         return qrCode;
     }
@@ -56,7 +52,20 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrRCode> {
         return new ResponseEntity<>(image, HttpStatus.OK);
     }
 
-    public void transfer(TransferDto transferDto) throws ServiceException  {
+    public void transfer(TransferDto transferDto) throws ServiceException {
+        QrCode qrCode = repository.findByQrCodeId(transferDto.getQrCodeId());
+        Merchant merchant =merchantService.findByMerchantId(qrCode.getMerchant().getMerchantId());
 
+                switch (transferDto.getTransferMethod()) {
+                    case TO_CARD -> { //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount())
+
+                    }
+                    case TO_ACCOUNT -> {
+                        //TODO Call depositOnBankWithAccountNumber(merchant.getAccountNumber(),transferDto.getAmount())
+                    }
+                    case TO_WALLET -> {
+                        //TODO Call depositOnBankWithWallet
+                    }
+                };
     }
 }

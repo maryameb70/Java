@@ -1,9 +1,8 @@
 package com.example.telepardaz.repositories;
 
-import com.example.telepardaz.models.Merchant;
-import com.example.telepardaz.models.QrRCode;
+import com.example.telepardaz.models.QrCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QRCodeRepository extends JpaRepository<QrRCode, Long> {
-
+public interface QRCodeRepository extends JpaRepository<QrCode, Long> {
+    QrCode findByQrCodeId(String qrCodeId);
 }

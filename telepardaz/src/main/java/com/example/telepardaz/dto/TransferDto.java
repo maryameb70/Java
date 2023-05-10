@@ -1,16 +1,17 @@
 package com.example.telepardaz.dto;
 
 import com.example.telepardaz.enums.TransferMethod;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.time.Instant;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TransferDto extends BaseDto {
+    @NotNull(message = "Entering this field is required")
     private Long amount;
-    private Long qrCodeId;
+    @NotNull(message = "Entering this field is required")
+    private String qrCodeId;
+    @NotNull(message = "Entering this field is required")
     private TransferMethod transferMethod;
 }
