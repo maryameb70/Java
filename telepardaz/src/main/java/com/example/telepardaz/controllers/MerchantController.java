@@ -7,6 +7,8 @@ import com.example.telepardaz.services.MerchantService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/merchant")
 public class MerchantController extends BaseController<Merchant, MerchantDto, MerchantService> {

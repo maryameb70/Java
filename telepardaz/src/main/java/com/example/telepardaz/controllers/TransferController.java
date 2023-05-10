@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transfer")
 public class TransferController extends BaseController<QrCode, QRCodeDto, TransferService> {
 
-    @PostMapping
+    @PostMapping("trans")
     @Transactional
     public void transfer(@RequestBody TransferDto transferDto) throws ServiceException  {
         service.transfer(transferDto);
