@@ -14,18 +14,16 @@ public class TransferService extends BaseService<QRCodeRepository, QrCode> {
     private MerchantService merchantService;
 
     public void transfer(TransferDto transferDto) throws ServiceException {
-        QrCode qrCode = repository.findByQrCodeId(transferDto.getQrCodeId());
-        Merchant merchant =merchantService.findByMerchantId(qrCode.getMerchant().getMerchantId());
-
-                switch (transferDto.getTransferMethod()) {
-                    case TO_CARD -> { //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount())
-                    }
-                    case TO_ACCOUNT -> {
-                        //TODO Call depositOnBankWithAccountNumber(merchant.getAccountNumber(),transferDto.getAmount())
-                    }
-                    case TO_WALLET -> {
-                        //TODO Call depositOnBankWithWallet
-                    }
-                }
+        Merchant merchant = merchantService.findByMerchantId(transferDto.getMerchantId());
+        switch (transferDto.getTransferMethod()) {
+            case TO_CARD -> { //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount())
+            }
+            case TO_ACCOUNT -> {
+                //TODO Call depositOnBankWithAccountNumber(merchant.getAccountNumber(),transferDto.getAmount())
+            }
+            case TO_WALLET -> {
+                //TODO Call depositOnBankWithWallet
+            }
+        }
     }
 }

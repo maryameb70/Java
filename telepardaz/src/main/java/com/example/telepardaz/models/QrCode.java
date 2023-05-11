@@ -15,17 +15,9 @@ public class QrCode extends BaseEntity {
     @JoinColumn(name = "merchant_id")
     private Merchant merchant;
 
-    @Column(name = "amount")
-    private Long amount;
-
-    @Column(name = "codeType")
-    private String codeType="ORDER_QR";
-
     @Column(unique = true,name = "terminalId")
     private String terminalId;
 
     @Column(unique = true,name="qrCodeId")
     private String qrCodeId;
-
-
 }

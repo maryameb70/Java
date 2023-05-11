@@ -8,10 +8,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TransferDto extends BaseDto {
+    private String merchantId;
     @NotNull(message = "Entering this field is required")
     private Long amount;
-    @NotNull(message = "Entering this field is required")
-    private String qrCodeId;
     @NotNull(message = "Entering this field is required")
     private TransferMethod transferMethod;
 }

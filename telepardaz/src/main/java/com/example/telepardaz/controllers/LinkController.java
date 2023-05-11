@@ -1,6 +1,7 @@
 package com.example.telepardaz.controllers;
 
 import com.example.telepardaz.dto.MerchantDto;
+import com.example.telepardaz.dto.MerchantBaseInfo;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.services.LinkService;
@@ -19,9 +20,11 @@ public class LinkController extends BaseController<Merchant, MerchantDto, LinkSe
         return service.generateLink(mapper.convertDto(dto));
     }
 
-    @GetMapping("/{code}")
+    @GetMapping("/url")
+    @ResponseBody
     @Transactional
-    public Merchant decode(@PathVariable("code") String code) throws ServiceException, IOException {
-       return service.decode(code);
+    public MerchantBaseInfo getMerchant(@RequestParam String code) throws IOException {
+        return service.decode(code);
     }
+
 }

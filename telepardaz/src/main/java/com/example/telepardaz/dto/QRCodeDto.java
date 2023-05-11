@@ -5,8 +5,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class QRCodeDto extends BaseDto {
     private String merchantId;
-    private Long amount;
-    private String codeType = "ORDER_QR";
     private String terminalId;
     private String qrCodeId;
 }

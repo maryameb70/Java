@@ -1,10 +1,13 @@
 package com.example.telepardaz.services;
 
 import com.example.telepardaz.dto.QRCodeDto;
+import com.example.telepardaz.dto.MerchantBaseInfo;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.models.QrCode;
 import com.example.telepardaz.repositories.QRCodeRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -22,27 +25,34 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     @Autowired
     private MerchantService merchantService;
 
-    public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException {
+    public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
         Merchant merchant = merchantService.findByMerchantId(dto.getMerchantId());
         if (merchant==null) {
             throw new ServiceException("this-merchandise-is-not-registered-in-the-system");
         }
-        QrCode qrCode = saveQrCode(dto, merchant);
+        saveQrCode(dto, merchant);
         QRCodeWriter barcodeWriter = new QRCodeWriter();
-        StringBuffer infoSavedOnQr = new StringBuffer("QrCodeId:" + qrCode.getQrCodeId()).append("\n" + "MerchantId:").append(merchant.getMerchantId()).append("\n" + "MerchantFirstName:").append(merchant.getFirstName()).append("\n" + "MerchantLastName:").append(merchant.getLastName());
+        MerchantBaseInfo response = getShowMerchant(merchant);
+        ObjectMapper mapper = new ObjectMapper();
+        String infoSavedOnQr=mapper.writeValueAsString(response);
         BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
-    private QrCode saveQrCode(QRCodeDto dto, Merchant merchant) {
+    private static MerchantBaseInfo getShowMerchant(Merchant merchant) {
+        MerchantBaseInfo response=new MerchantBaseInfo();
+        response.setMerchantId(merchant.getMerchantId());
+        response.setFirstName(merchant.getFirstName());
+        response.setLastName(merchant.getLastName());
+        return response;
+    }
+
+    private void saveQrCode(QRCodeDto dto, Merchant merchant) {
         QrCode qrCode = new QrCode();
         qrCode.setMerchant(merchant);
-        qrCode.setAmount(dto.getAmount());
-        qrCode.setCodeType(dto.getCodeType());
         qrCode.setTerminalId(dto.getTerminalId());
         qrCode.setQrCodeId(dto.getQrCodeId());
         repository.save(qrCode);
-        return qrCode;
     }
 
     public ResponseEntity<BufferedImage> okResponse(BufferedImage image) {
