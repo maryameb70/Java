@@ -13,7 +13,7 @@ import java.util.UUID;
 public class MerchantService extends BaseService<MerchantRepository, Merchant> {
     @Autowired
     private LinkService linkService;
-    private static String code;
+
 
     public MerchantResponse create(Merchant merchant) throws ServiceException {
         Merchant existingMerchant = repository.findByUsername(merchant.getUsername());
@@ -28,7 +28,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         response.setId(merchant.getId());
         response.setFirstName(merchant.getFirstName());
         response.setLastName(merchant.getLastName());
-        response.setUrl("localhost:8080/link?code=" + code);
+        response.setUrl("localhost:8080/link?code=" + merchant.getCode());
         return response;
     }
 
@@ -44,8 +44,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         entity.setMerchantId(String.valueOf(UUID.randomUUID()));
         entity.setUserId(merchant.getUserId());
         Merchant savedNewMerchant=repository.save(entity);
-        code = linkService.generateLink(savedNewMerchant);
-        savedNewMerchant.setCode(code);
+        savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant));
         super.update(savedNewMerchant);
         return savedNewMerchant;
     }
