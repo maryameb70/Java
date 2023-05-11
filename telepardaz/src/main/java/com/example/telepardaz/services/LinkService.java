@@ -9,13 +9,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class LinkService extends BaseService<MerchantRepository, Merchant> {
 
     public String generateLink(Merchant merchant) {
         MerchantBaseInfo dto=new MerchantBaseInfo();
-        dto.setMerchantId(merchant.getMerchantId());
+        dto.setId(merchant.getId());
         dto.setFirstName(merchant.getFirstName());
         dto.setLastName(merchant.getLastName());
         String base64 = null;
@@ -35,16 +36,16 @@ public class LinkService extends BaseService<MerchantRepository, Merchant> {
     public MerchantBaseInfo decode(String base64) throws IOException {
         byte [] bytes =  DatatypeConverter.parseBase64Binary(base64);
         ObjectMapper mapper = new ObjectMapper();
-        Merchant decodedMerchant=mapper.readValue(bytes,Merchant.class);
-        decodedMerchant=repository.findByMerchantId(decodedMerchant.getMerchantId());
+        Optional<Merchant> decodedMerchant= Optional.ofNullable(mapper.readValue(bytes, Merchant.class));
+        decodedMerchant=repository.findById(decodedMerchant.get().getId());
         return getShowMerchant(decodedMerchant);
     }
 
-    private static MerchantBaseInfo getShowMerchant(Merchant decodedMerchant) {
+    private static MerchantBaseInfo getShowMerchant(Optional<Merchant> decodedMerchant) {
         MerchantBaseInfo response = new MerchantBaseInfo();
-        response.setMerchantId(decodedMerchant.getMerchantId());
-        response.setFirstName(decodedMerchant.getFirstName());
-        response.setLastName(decodedMerchant.getLastName());
+        response.setId(decodedMerchant.get().getId());
+        response.setFirstName(decodedMerchant.get().getFirstName());
+        response.setLastName(decodedMerchant.get().getLastName());
         return response;
     }
 }

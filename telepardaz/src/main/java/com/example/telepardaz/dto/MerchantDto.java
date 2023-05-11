@@ -32,7 +32,5 @@ public class MerchantDto extends BaseDto {
     @Pattern(regexp = "^\\d{16}$", message = "Use only 8 digits for your cardNumber")
     private String cardNumber;
 
-    private String merchantId;
-
     private Long userId;
 }

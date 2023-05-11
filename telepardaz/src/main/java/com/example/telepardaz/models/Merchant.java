@@ -34,10 +34,10 @@ public class Merchant extends BaseEntity {
     @OneToMany(mappedBy = "merchant")
     private List<QrCode> qrCodes;
 
-    @Column(unique = true)
+    @Column
     private String merchantId;
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private Long userId;
 
     private String code;

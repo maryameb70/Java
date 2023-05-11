@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
@@ -26,8 +28,8 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     private MerchantService merchantService;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
-        Merchant merchant = merchantService.findByMerchantId(dto.getMerchantId());
-        if (merchant==null) {
+        Optional<Merchant> merchant = merchantService.findById(dto.getId());
+        if (merchant.isEmpty()) {
             throw new ServiceException("this-merchandise-is-not-registered-in-the-system");
         }
         saveQrCode(dto, merchant);
@@ -39,19 +41,19 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
-    private static MerchantBaseInfo getShowMerchant(Merchant merchant) {
+    private static MerchantBaseInfo getShowMerchant(Optional<Merchant> merchant) {
         MerchantBaseInfo response=new MerchantBaseInfo();
-        response.setMerchantId(merchant.getMerchantId());
-        response.setFirstName(merchant.getFirstName());
-        response.setLastName(merchant.getLastName());
+        response.setId(merchant.get().getId());
+        response.setFirstName(merchant.get().getFirstName());
+        response.setLastName(merchant.get().getLastName());
         return response;
     }
 
-    private void saveQrCode(QRCodeDto dto, Merchant merchant) {
+    private void saveQrCode(QRCodeDto dto, Optional<Merchant> merchant) {
         QrCode qrCode = new QrCode();
-        qrCode.setMerchant(merchant);
+        qrCode.setMerchant(merchant.get());
         qrCode.setTerminalId(dto.getTerminalId());
-        qrCode.setQrCodeId(dto.getQrCodeId());
+        qrCode.setQrCodeId(String.valueOf(UUID.randomUUID()));
         repository.save(qrCode);
     }
 

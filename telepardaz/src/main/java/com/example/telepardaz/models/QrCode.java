@@ -18,6 +18,6 @@ public class QrCode extends BaseEntity {
     @Column(unique = true,name = "terminalId")
     private String terminalId;
 
-    @Column(unique = true,name="qrCodeId")
+    @Column(name="qrCodeId")
     private String qrCodeId;
 }

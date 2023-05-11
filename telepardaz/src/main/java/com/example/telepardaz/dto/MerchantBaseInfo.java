@@ -9,5 +9,5 @@ import lombok.*;
 public class MerchantBaseInfo {
     private String firstName;
     private String lastName;
-    private String merchantId;
+    private Long id;
 }
