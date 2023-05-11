@@ -1,5 +1,6 @@
 package com.example.telepardaz.services;
 
+import com.example.telepardaz.config.GeneralObject;
 import com.example.telepardaz.dto.QRCodeDto;
 import com.example.telepardaz.dto.MerchantBaseInfo;
 import com.example.telepardaz.exceptions.ServiceException;
@@ -26,6 +27,8 @@ import java.util.UUID;
 public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     @Autowired
     private MerchantService merchantService;
+    @Autowired
+    private GeneralObject generalObject;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
         Optional<Merchant> merchant = merchantService.findById(dto.getId());
@@ -36,8 +39,8 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
         QRCodeWriter barcodeWriter = new QRCodeWriter();
         MerchantBaseInfo response = getShowMerchant(merchant);
         ObjectMapper mapper = new ObjectMapper();
-        String infoSavedOnQr=mapper.writeValueAsString(response);
-        BitMatrix bitMatrix = barcodeWriter.encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
+        String infoSavedOnQr = generalObject.mapper().writeValueAsString(response);
+        BitMatrix bitMatrix = generalObject.barcodeWriter().encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 

@@ -7,13 +7,14 @@ import com.example.telepardaz.repositories.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Service
 public class MerchantService extends BaseService<MerchantRepository, Merchant> {
     @Autowired
     private LinkService linkService;
-
 
     public MerchantResponse create(Merchant merchant) throws ServiceException {
         Merchant existingMerchant = repository.findByUsername(merchant.getUsername());
@@ -23,7 +24,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         return getMerchantResponse( saveMerchant(merchant));
     }
 
-    private static MerchantResponse getMerchantResponse(Merchant merchant) {
+    private MerchantResponse getMerchantResponse(Merchant merchant) {
         MerchantResponse response = new MerchantResponse();
         response.setId(merchant.getId());
         response.setFirstName(merchant.getFirstName());
@@ -35,7 +36,7 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
     private Merchant saveMerchant(Merchant merchant) throws ServiceException {
         Merchant entity = new Merchant();
         entity.setUsername(merchant.getUsername());
-        entity.setPassword(merchant.getPassword());
+        entity.setPassword(getPasswordEncrypt(merchant.getPassword()));
         entity.setFirstName(merchant.getFirstName());
         entity.setLastName(merchant.getLastName());
         entity.setAccountNumber(merchant.getAccountNumber());
@@ -47,5 +48,27 @@ public class MerchantService extends BaseService<MerchantRepository, Merchant> {
         savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant));
         super.update(savedNewMerchant);
         return savedNewMerchant;
+    }
+
+    public String getPasswordEncrypt(String pass)
+    {
+        String encryptedpassword = null;
+        try
+        {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(pass.getBytes());
+            byte[] bytes = m.digest();
+            StringBuilder s = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            encryptedpassword = s.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return encryptedpassword;
     }
 }
