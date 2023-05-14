@@ -13,7 +13,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,9 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     @Autowired
     private MerchantService merchantService;
     @Autowired
-    private GeneralObject generalObject;
+    private ObjectMapper mapper;
+    @Autowired
+    private GeneralObject QRCodeWriter;
 
     public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
         Optional<Merchant> merchant = merchantService.findById(dto.getId());
@@ -36,19 +37,17 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
             throw new ServiceException("this-merchandise-is-not-registered-in-the-system");
         }
         saveQrCode(dto, merchant);
-        QRCodeWriter barcodeWriter = new QRCodeWriter();
         MerchantBaseInfo response = getShowMerchant(merchant);
-        ObjectMapper mapper = new ObjectMapper();
-        String infoSavedOnQr = generalObject.mapper().writeValueAsString(response);
-        BitMatrix bitMatrix = generalObject.barcodeWriter().encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
+        String infoSavedOnQr = mapper.writeValueAsString(response);
+        BitMatrix bitMatrix = QRCodeWriter.barcodeWriter().encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
-    private static MerchantBaseInfo getShowMerchant(Optional<Merchant> merchant) {
-        MerchantBaseInfo response=new MerchantBaseInfo();
+    private MerchantBaseInfo getShowMerchant(Optional<Merchant> merchant) {
+        MerchantBaseInfo response = new MerchantBaseInfo();
         response.setId(merchant.get().getId());
-        response.setFirstName(merchant.get().getFirstName());
-        response.setLastName(merchant.get().getLastName());
+//        response.setFirstName(merchant.get().getFirstName());
+//        response.setLastName(merchant.get().getLastName());
         return response;
     }
 

@@ -18,7 +18,7 @@ public class TransferService extends BaseService<QRCodeRepository, QrCode> {
     public void transfer(TransferDto transferDto) throws ServiceException {
         Optional<Merchant> merchant = merchantService.findById(transferDto.getMerchantId());
         switch (transferDto.getTransferMethod()) {
-            case TO_CARD -> { //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount())
+            case TO_CARD -> {  //TODO Call depositOnBankWithCardNumber(merchant.getCardNumber(),transferDto.getAmount());
             }
             case TO_ACCOUNT -> {
                 //TODO Call depositOnBankWithAccountNumber(merchant.getAccountNumber(),transferDto.getAmount())
@@ -26,6 +26,7 @@ public class TransferService extends BaseService<QRCodeRepository, QrCode> {
             case TO_WALLET -> {
                 //TODO Call depositOnBankWithWallet
             }
+            default -> throw new IllegalStateException("Unexpected value: " + transferDto.getTransferMethod());
         }
     }
 }

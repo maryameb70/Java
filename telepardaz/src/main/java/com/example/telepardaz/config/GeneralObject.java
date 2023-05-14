@@ -8,10 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GeneralObject {
     @Bean
-    public ObjectMapper mapper() {
-        return new ObjectMapper();
-    }
-    @Bean
     public QRCodeWriter barcodeWriter() {
         return new QRCodeWriter();
     }
