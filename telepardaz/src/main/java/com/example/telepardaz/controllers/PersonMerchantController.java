@@ -18,6 +18,6 @@ public class PersonMerchantController extends BaseController<PersonMerchant, Per
     @PostMapping("/add")
     @Transactional
     public MerchantResponse createPersonMerchant(@RequestBody PersonMerchantDto dto) throws ServiceException {
-        return service.createPersonMerchant(mapper.convertDto(dto));
+        return service.createMerchant(mapper.convertDto(dto));
     }
 }

@@ -11,23 +11,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonMerchantService extends BaseService<PersonMerchantRepository, PersonMerchant> {
+public class PersonMerchantService extends BaseService<PersonMerchantRepository, PersonMerchant> implements BaseMerchant {
     @Autowired
     private LinkService linkService;
 
     @Value("$base-url")
     private String baseUrl;
 
-    public MerchantResponse createPersonMerchant(PersonMerchant personMerchant) throws ServiceException {
-        return getMerchantResponse((PersonMerchant) savePersonMerchant(personMerchant));
-    }
-
-    private MerchantResponse getMerchantResponse(PersonMerchant merchant) {
-        MerchantResponse response = new MerchantResponse();
-        response.setId(merchant.getId());
-        response.setName(merchant.getName());
-        response.setUrl(baseUrl + "/link?code=" + merchant.getCode());
-        return response;
+    @Override
+    public <T extends Merchant> MerchantResponse createMerchant(T merchant) throws ServiceException {
+        return getMerchantResponse((PersonMerchant) savePersonMerchant((PersonMerchant) merchant));
     }
 
     private Merchant savePersonMerchant(PersonMerchant personMerchant) throws ServiceException {
@@ -35,5 +28,14 @@ public class PersonMerchantService extends BaseService<PersonMerchantRepository,
         savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant, MerchantType.PERSON));
         super.update(savedNewMerchant);
         return savedNewMerchant;
+    }
+
+    @Override
+    public <T extends Merchant> MerchantResponse getMerchantResponse(T merchant) {
+        MerchantResponse response = new MerchantResponse();
+        response.setId(merchant.getId());
+        response.setName(merchant.getName());
+        response.setUrl(baseUrl + "/link?code=" + merchant.getCode());
+        return response;
     }
 }

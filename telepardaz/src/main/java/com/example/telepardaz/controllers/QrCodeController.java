@@ -21,6 +21,6 @@ public class QrCodeController extends BaseController<QrCode, QRCodeDto, QrCodeSe
     @PostMapping(value = "/generate",produces = MediaType.IMAGE_PNG_VALUE)
     @Transactional
     public ResponseEntity<BufferedImage> create(@Valid @RequestBody QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
-        return service.okResponse(service.generateQRCodeImage(dto));
+        return service.okResponse(service.generateQRCodeImage(mapper.convertDto(dto)));
     }
 }

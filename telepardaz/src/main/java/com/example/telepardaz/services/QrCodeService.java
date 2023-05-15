@@ -1,7 +1,6 @@
 package com.example.telepardaz.services;
 
 import com.example.telepardaz.config.GeneralObject;
-import com.example.telepardaz.dto.QRCodeDto;
 import com.example.telepardaz.dto.MerchantBaseInfo;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
@@ -31,12 +30,16 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     @Autowired
     private GeneralObject QRCodeWriter;
 
-    public BufferedImage generateQRCodeImage(QRCodeDto dto) throws ServiceException, WriterException, JsonProcessingException {
-        Optional<Merchant> merchant = merchantService.findById(dto.getId());
+    public BufferedImage generateQRCodeImage(QrCode qrCode) throws ServiceException, WriterException, JsonProcessingException {
+        Optional<Merchant> merchant = merchantService.findById(qrCode.getId());
         if (merchant.isEmpty()) {
             throw new ServiceException("this-merchandise-is-not-registered-in-the-system");
         }
-        saveQrCode(dto, merchant);
+        QrCode terminalId = repository.findByTerminalId(qrCode.getTerminalId());
+        if (terminalId != null) {
+            throw new ServiceException("the-terminal-iD-is-registered-in-the-system");
+        }
+        saveQrCode(qrCode, merchant);
         MerchantBaseInfo response = getShowMerchant(merchant);
         String infoSavedOnQr = mapper.writeValueAsString(response);
         BitMatrix bitMatrix = QRCodeWriter.barcodeWriter().encode(String.valueOf(infoSavedOnQr), BarcodeFormat.QR_CODE, 200, 200);
@@ -50,12 +53,12 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
         return response;
     }
 
-    private void saveQrCode(QRCodeDto dto, Optional<Merchant> merchant) {
-        QrCode qrCode = new QrCode();
-        qrCode.setMerchant(merchant.get());
-        qrCode.setTerminalId(dto.getTerminalId());
-        qrCode.setQrCodeId(String.valueOf(UUID.randomUUID()));
-        repository.save(qrCode);
+    private void saveQrCode(QrCode qrCode, Optional<Merchant> merchant) {
+        QrCode entity = new QrCode();
+        entity.setMerchant(merchant.get());
+        entity.setTerminalId(qrCode.getTerminalId());
+        entity.setQrCodeId(String.valueOf(UUID.randomUUID()));
+        repository.save(entity);
     }
 
     public ResponseEntity<BufferedImage> okResponse(BufferedImage image) {

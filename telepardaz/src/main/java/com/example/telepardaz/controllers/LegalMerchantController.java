@@ -18,7 +18,7 @@ public class LegalMerchantController extends BaseController<LegalMerchant, Legal
     @PostMapping("/add")
     @Transactional
     public MerchantResponse createLegalMerchant(@RequestBody LegalMerchantDto dto) throws ServiceException {
-         return service.createLegalMerchant(mapper.convertDto(dto));
+         return service.createMerchant(mapper.convertDto(dto));
     }
 
 }
