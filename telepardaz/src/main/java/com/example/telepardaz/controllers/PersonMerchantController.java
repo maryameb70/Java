@@ -1,5 +1,6 @@
 package com.example.telepardaz.controllers;
 
+import com.example.telepardaz.dto.MerchantResponse;
 import com.example.telepardaz.dto.PersonMerchantDto;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.PersonMerchant;
@@ -16,8 +17,7 @@ public class PersonMerchantController extends BaseController<PersonMerchant, Per
 
     @PostMapping("/add")
     @Transactional
-    public void createPersonMerchant(@RequestBody PersonMerchantDto dto) throws ServiceException {
-        service.createPersonMerchant(mapper.convertDto(dto));
+    public MerchantResponse createPersonMerchant(@RequestBody PersonMerchantDto dto) throws ServiceException {
+        return service.createPersonMerchant(mapper.convertDto(dto));
     }
-
 }

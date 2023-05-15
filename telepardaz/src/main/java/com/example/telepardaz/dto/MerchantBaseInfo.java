@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MerchantBaseInfo {
-    private String firstName;
-    private String lastName;
+    private String name;
     private Long id;
 }

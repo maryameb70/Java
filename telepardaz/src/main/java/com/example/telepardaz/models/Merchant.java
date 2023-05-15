@@ -1,8 +1,8 @@
 package com.example.telepardaz.models;
 
-import com.example.telepardaz.enums.MerchantType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 

@@ -1,11 +1,15 @@
 package com.example.telepardaz.services;
 
+import com.example.telepardaz.controllers.MerchantClient;
 import com.example.telepardaz.dto.MerchantResponse;
+import com.example.telepardaz.exceptions.RequiredLoginException;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.LegalMerchant;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.repositories.LegalMerchantRepository;
+import com.example.telepardaz.utills.TokenValidResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,33 +17,30 @@ public class LegalMerchantService extends BaseService<LegalMerchantRepository, L
     @Autowired
     private LinkService linkService;
 
+    //    @Autowired
+//    private MerchantClient merchantClient;
+
+    @Value("$base-url")
+    private String baseUrl;
 
     public MerchantResponse createLegalMerchant(LegalMerchant legalMerchant) throws ServiceException {
-        return getMerchantResponse(saveLegalMerchant(legalMerchant));
+//        TokenValidResponse checkvalid = merchantClient.checkvalid(token);
+//        if (!checkvalid.getIsValid()) {
+//            throw new RequiredLoginException("user-required-login");
+//        }
+        return getMerchantResponse((LegalMerchant) saveLegalMerchant(legalMerchant));
     }
 
-    private MerchantResponse getMerchantResponse(Merchant merchant) {
+    private MerchantResponse getMerchantResponse(LegalMerchant merchant) {
         MerchantResponse response = new MerchantResponse();
         response.setId(merchant.getId());
-//        response.setFirstName(merchant.getFirstName());
-//        response.setLastName(merchant.getLastName());
-        response.setUrl("localhost:8080/link?code=" + merchant.getCode());
+        response.setName(merchant.getStoreName());
+        response.setUrl(baseUrl + "/link?code=" + merchant.getCode());
         return response;
     }
 
     private Merchant saveLegalMerchant(LegalMerchant legalMerchant) throws ServiceException {
-        LegalMerchant entityLegal = new LegalMerchant();
-        entityLegal.setStoreName(legalMerchant.getStoreName());
-        entityLegal.setPostalCode(legalMerchant.getPostalCode());
-        entityLegal.setDescription(legalMerchant.getDescription());
-        entityLegal.setAddress(legalMerchant.getAddress());
-        entityLegal.setPhone(legalMerchant.getPhone());
-        entityLegal.setMobile(legalMerchant.getMobile());
-        entityLegal.setEmail(legalMerchant.getEmail());
-        entityLegal.setWebsite(legalMerchant.getWebsite());
-        entityLegal.setIban(legalMerchant.getIban());
-        entityLegal.setCode(legalMerchant.getCode());
-        LegalMerchant savedNewMerchant = repository.save(entityLegal);
+        LegalMerchant savedNewMerchant = repository.save(legalMerchant);
         savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant));
         super.update(savedNewMerchant);
         return savedNewMerchant;
