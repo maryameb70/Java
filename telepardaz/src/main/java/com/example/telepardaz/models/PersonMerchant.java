@@ -9,10 +9,9 @@ import lombok.experimental.SuperBuilder;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue("PERSON")
 public class PersonMerchant extends Merchant {
-    private String firstName;
-    private String lastName;
+
+
 }

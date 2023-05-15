@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Merchant extends BaseEntity {
+    private String name;
     private String phone;
     private String mobile;
     private String email;
@@ -25,4 +26,5 @@ public class Merchant extends BaseEntity {
     private String code;
     @OneToMany(mappedBy = "merchant")
     private List<QrCode> qrCodes;
+    private String MerchantId;
 }

@@ -11,8 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 @DiscriminatorValue("LEGAL")
 public class LegalMerchant extends Merchant {
-    private String storeName;
     private String postalCode;
     private String description;
     private String address;
+
 }

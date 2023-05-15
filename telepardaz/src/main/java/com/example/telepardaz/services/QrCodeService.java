@@ -46,8 +46,7 @@ public class QrCodeService extends BaseService<QRCodeRepository, QrCode> {
     private MerchantBaseInfo getShowMerchant(Optional<Merchant> merchant) {
         MerchantBaseInfo response = new MerchantBaseInfo();
         response.setId(merchant.get().getId());
-//        response.setFirstName(merchant.get().getFirstName());
-//        response.setLastName(merchant.get().getLastName());
+        response.setName(merchant.get().getName());
         return response;
     }
 

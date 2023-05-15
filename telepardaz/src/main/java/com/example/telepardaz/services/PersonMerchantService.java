@@ -1,6 +1,7 @@
 package com.example.telepardaz.services;
 
 import com.example.telepardaz.dto.MerchantResponse;
+import com.example.telepardaz.enums.MerchantType;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.models.PersonMerchant;
@@ -24,14 +25,14 @@ public class PersonMerchantService extends BaseService<PersonMerchantRepository,
     private MerchantResponse getMerchantResponse(PersonMerchant merchant) {
         MerchantResponse response = new MerchantResponse();
         response.setId(merchant.getId());
-        response.setName(merchant.getFirstName());
+        response.setName(merchant.getName());
         response.setUrl(baseUrl + "/link?code=" + merchant.getCode());
         return response;
     }
 
     private Merchant savePersonMerchant(PersonMerchant personMerchant) throws ServiceException {
         PersonMerchant savedNewMerchant = repository.save(personMerchant);
-        savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant));
+        savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant, MerchantType.PERSON));
         super.update(savedNewMerchant);
         return savedNewMerchant;
     }

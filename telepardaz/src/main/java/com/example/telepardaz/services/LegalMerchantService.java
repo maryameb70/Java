@@ -2,6 +2,7 @@ package com.example.telepardaz.services;
 
 import com.example.telepardaz.controllers.MerchantClient;
 import com.example.telepardaz.dto.MerchantResponse;
+import com.example.telepardaz.enums.MerchantType;
 import com.example.telepardaz.exceptions.RequiredLoginException;
 import com.example.telepardaz.exceptions.ServiceException;
 import com.example.telepardaz.models.LegalMerchant;
@@ -17,9 +18,6 @@ public class LegalMerchantService extends BaseService<LegalMerchantRepository, L
     @Autowired
     private LinkService linkService;
 
-    //    @Autowired
-//    private MerchantClient merchantClient;
-
     @Value("$base-url")
     private String baseUrl;
 
@@ -34,14 +32,14 @@ public class LegalMerchantService extends BaseService<LegalMerchantRepository, L
     private MerchantResponse getMerchantResponse(LegalMerchant merchant) {
         MerchantResponse response = new MerchantResponse();
         response.setId(merchant.getId());
-        response.setName(merchant.getStoreName());
+        response.setName(merchant.getName());
         response.setUrl(baseUrl + "/link?code=" + merchant.getCode());
         return response;
     }
 
     private Merchant saveLegalMerchant(LegalMerchant legalMerchant) throws ServiceException {
         LegalMerchant savedNewMerchant = repository.save(legalMerchant);
-        savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant));
+        savedNewMerchant.setCode(linkService.generateLink(savedNewMerchant, MerchantType.LEGAL));
         super.update(savedNewMerchant);
         return savedNewMerchant;
     }

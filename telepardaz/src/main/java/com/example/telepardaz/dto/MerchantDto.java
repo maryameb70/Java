@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MerchantDto extends BaseDto {
+    private String name;
     private String phone;
     private String mobile;
     private String email;
