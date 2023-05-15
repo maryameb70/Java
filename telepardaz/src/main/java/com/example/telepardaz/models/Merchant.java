@@ -17,8 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Merchant extends BaseEntity {
-//    @Enumerated(EnumType.STRING)
-//    private MerchantType merchantType;
     private String phone;
     private String mobile;
     private String email;

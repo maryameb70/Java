@@ -1,6 +1,5 @@
 package com.example.telepardaz.dto;
 
-import com.example.telepardaz.enums.MerchantType;
 import com.example.telepardaz.models.QrCode;
 import jakarta.persistence.*;
 import lombok.*;

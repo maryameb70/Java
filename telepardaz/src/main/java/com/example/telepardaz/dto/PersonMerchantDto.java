@@ -8,8 +8,4 @@ public class PersonMerchantDto extends MerchantDto {
     private String firstName;
     private String lastName;
 
-    public PersonMerchantDto(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 }
