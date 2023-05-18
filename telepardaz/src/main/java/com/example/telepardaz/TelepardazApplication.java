@@ -1,6 +1,7 @@
 package com.example.telepardaz;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import java.awt.image.BufferedImage;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableJpaAuditing
+@EnableFeignClients
 public class TelepardazApplication {
 
     public static void main(String[] args) {

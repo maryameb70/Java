@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class QrCode extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "merchant_id")

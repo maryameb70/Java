@@ -6,9 +6,8 @@ import com.example.telepardaz.models.LegalMerchant;
 import com.example.telepardaz.models.Merchant;
 import com.example.telepardaz.models.PersonMerchant;
 import com.example.telepardaz.repositories.MerchantRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +45,18 @@ public class LinkService extends BaseService<MerchantRepository, Merchant> {
     }
 
     public MerchantBaseInfo decode(String token) throws IOException {
-        String[] chunks = token.split("\\.");
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-        String payload = new String(decoder.decode(chunks[1]));
-        return getShowMerchant(payload);
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token).getBody();
+        Long id = ((Number) claims.get("id")).longValue();
+        String name = (String) claims.get("name");
+        return getShowMerchant(name, id);
     }
 
-    private MerchantBaseInfo getShowMerchant(String payload) throws JsonProcessingException {
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(payload, MerchantBaseInfo.class);
+    private static MerchantBaseInfo getShowMerchant(String fullname, Long id) {
+        MerchantBaseInfo response = new MerchantBaseInfo();
+        response.setId(id);
+        response.setName(fullname);
+        return response;
     }
 }

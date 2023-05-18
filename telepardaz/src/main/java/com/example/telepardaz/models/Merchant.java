@@ -7,8 +7,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="merchant_type",
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "merchant_type",
         discriminatorType = DiscriminatorType.STRING)
 @Table(name = "merchant")
 @Data
@@ -24,6 +24,10 @@ public class Merchant extends BaseEntity {
     private String website;
     private String iban;
     private String code;
+    private String cardNumber;
+    private String accountNumber;
+    private String cvv2;
+    private String expireTime;
     @OneToMany(mappedBy = "merchant")
     private List<QrCode> qrCodes;
     private String MerchantId;

@@ -1,7 +1,9 @@
 package com.example.telepardaz.controllers;
 import com.example.telepardaz.exceptions.ExceptionResponse;
 import com.example.telepardaz.exceptions.ServiceException;
+import feign.FeignException;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -65,6 +67,12 @@ public class RestExceptionHandler {
         return ResponseEntity.badRequest().body(value);
     }
 
-
-
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ExceptionResponse> handleFeignStatusException(FeignException e, HttpServletResponse response) {
+        response.setStatus(e.status());
+        ExceptionResponse value = new ExceptionResponse();
+        value.setError(true);
+        value.setMessage(properties.getProperty("unknown"));
+        return ResponseEntity.status(e.status()).body(value);
+    }
 }
