@@ -1,4 +1,4 @@
-package com.example.algoritm.countitemsinlist;
+package com.example.algoritm.recursive;
 
 public class CountItemsInList {
     public static Integer count(int length) {
