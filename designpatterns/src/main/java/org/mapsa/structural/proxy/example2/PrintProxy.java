@@ -16,7 +16,7 @@ public class PrintProxy implements Print {
 }
 class Main{
     public static void main(String[] args) {
-        PrintProxy proxy=new PrintProxy(new PrintClass());
+        Print proxy=new PrintProxy(new PrintClass());
         proxy.print();
     }
 }
