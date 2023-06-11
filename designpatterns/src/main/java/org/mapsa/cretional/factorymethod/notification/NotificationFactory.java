@@ -1,4 +1,4 @@
-package org.mapsa.cretional.factorymethod;
+package org.mapsa.cretional.factorymethod.notification;
 
 public class NotificationFactory {
     public static Notification createNotification(NotificationType chanel){

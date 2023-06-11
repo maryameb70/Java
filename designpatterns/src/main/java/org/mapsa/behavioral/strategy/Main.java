@@ -1,8 +1,8 @@
 package org.mapsa.behavioral.strategy;
 
-import org.mapsa.cretional.factorymethod.Notification;
-import org.mapsa.cretional.factorymethod.NotificationFactory;
-import org.mapsa.cretional.factorymethod.NotificationType;
+import org.mapsa.cretional.factorymethod.notification.Notification;
+import org.mapsa.cretional.factorymethod.notification.NotificationFactory;
+import org.mapsa.cretional.factorymethod.notification.NotificationType;
 
 import java.util.HashMap;
 import java.util.Map;
