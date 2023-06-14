@@ -1,11 +1,10 @@
-package org.mapsa.structural.composition;
+package org.mapsa.structural.composition.department;
 
-public class FinancialDepartment implements Department{
-
+public class SalesDepartment implements Department{
     private Integer id;
     private String name;
 
-    public FinancialDepartment(Integer id, String name) {
+    public SalesDepartment(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
