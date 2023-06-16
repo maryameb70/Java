@@ -1,4 +1,4 @@
-package org.mapsa.interthreadcommunication.examplewaite;
+package org.mapsa.interthreadcommunication.waitnotify;
 
 public class Notifier implements Runnable{
     private Message msg;

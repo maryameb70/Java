@@ -1,4 +1,4 @@
-package org.mapsa.interthreadcommunication.examplewaite;
+package org.mapsa.interthreadcommunication.waitsleep;
 
 public class WaitSleepSimilaritiesExample {
     private static Object obj = new Object();
