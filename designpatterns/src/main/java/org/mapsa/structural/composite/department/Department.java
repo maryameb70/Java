@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.department;
+package org.mapsa.structural.composite.department;
 
 public interface Department {
     void printDepartmentName();

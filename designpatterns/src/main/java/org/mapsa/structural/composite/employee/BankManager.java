@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.employee;
+package org.mapsa.structural.composite.employee;
 
 // this is the BankManager class i.e. Composite.
 import java.util.ArrayList;

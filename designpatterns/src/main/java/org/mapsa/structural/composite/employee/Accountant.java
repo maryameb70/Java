@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.employee;
+package org.mapsa.structural.composite.employee;
 
 public class Accountant implements Employee{
     /*

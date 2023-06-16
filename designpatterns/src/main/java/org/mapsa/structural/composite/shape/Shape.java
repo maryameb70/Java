@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.shape;
+package org.mapsa.structural.composite.shape;
 
 //Component
 public interface Shape {

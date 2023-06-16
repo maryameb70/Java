@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.shape;
+package org.mapsa.structural.composite.shape;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.employee;
+package org.mapsa.structural.composite.employee;
 
 // this is the Employee interface i.e. Component.
 public interface Employee {

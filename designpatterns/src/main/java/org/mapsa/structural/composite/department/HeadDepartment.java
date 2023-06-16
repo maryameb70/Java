@@ -1,4 +1,4 @@
-package org.mapsa.structural.composition.department;
+package org.mapsa.structural.composite.department;
 
 import java.util.ArrayList;
 import java.util.List;
