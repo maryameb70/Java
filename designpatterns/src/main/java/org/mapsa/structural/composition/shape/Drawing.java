@@ -3,6 +3,7 @@ package org.mapsa.structural.composition.shape;
 import java.util.ArrayList;
 import java.util.List;
 
+//Composite
 public class Drawing implements Shape {
     private List<Shape> shapes = new ArrayList<>();
 
