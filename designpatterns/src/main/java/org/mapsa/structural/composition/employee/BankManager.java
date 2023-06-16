@@ -8,13 +8,14 @@ public class BankManager implements Employee {
     private int id;
     private String name;
     private double salary;
+    List<Employee> employees = new ArrayList<Employee>();
 
     public BankManager(int id,String name,double salary) {
         this.id=id;
         this.name = name;
         this.salary = salary;
     }
-    List<Employee> employees = new ArrayList<Employee>();
+
     @Override
     public void add(Employee employee) {
         employees.add(employee);
