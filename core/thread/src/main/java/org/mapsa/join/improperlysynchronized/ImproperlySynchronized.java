@@ -1,4 +1,4 @@
-package org.mapsa.join;
+package org.mapsa.join.improperlysynchronized;
 
 public class ImproperlySynchronized {
     public static void main(String[] args) throws InterruptedException {

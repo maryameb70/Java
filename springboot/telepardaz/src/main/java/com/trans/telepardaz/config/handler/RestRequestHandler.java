@@ -15,7 +15,7 @@ public class RestRequestHandler implements RequestInterceptor {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String authorization = request.getHeader("Authorization");
             if (StringUtils.isNotBlank(authorization)) {
-                requestTemplate.header("Authorization", new String[]{authorization});
+                requestTemplate.header("", new String[]{authorization});
             }
         }
     }

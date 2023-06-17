@@ -1,4 +1,4 @@
-package org.mapsa.join;
+package org.mapsa.join.improperlysynchronized;
 
 public class SampleThread extends Thread {
     public int processingCount = 0;

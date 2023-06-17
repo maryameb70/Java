@@ -1,5 +1,6 @@
 package com.example.algoritm.quicksort;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class QuickSort {
@@ -7,7 +8,7 @@ public class QuickSort {
         if (lowIndex >= highIndex) {
             return;
         }
-        int pivotIndex = new Random().nextInt(highIndex - lowIndex) + lowIndex;
+        int pivotIndex =(( highIndex - lowIndex) + lowIndex)/2;
         int pivot = array[pivotIndex];
         swap(array, pivotIndex, highIndex);
 
@@ -50,10 +51,11 @@ public class QuickSort {
 class Main {
     public static void main(String[] args) {
         Random random = new Random();
-        int[] numbers = new int[10];
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = random.nextInt(100);
-        }
+       // int[] numbers = new int[10];
+        int[] numbers = {1, 12, 5, 26, 7, 14, 3, 7, 2};
+//        for (int i = 0; i < numbers.length; i++) {
+//            numbers[i] = random.nextInt(100);
+//        }
 
         QuickSort.sort(numbers );
         System.out.println(Arrays.toString(numbers));

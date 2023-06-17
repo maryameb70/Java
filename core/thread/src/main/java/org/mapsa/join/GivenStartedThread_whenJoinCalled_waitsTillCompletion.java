@@ -1,5 +1,8 @@
 package org.mapsa.join;
 
+import org.mapsa.join.improperlysynchronized.MyThread;
+import org.mapsa.join.improperlysynchronized.SampleThread;
+
 public class GivenStartedThread_whenJoinCalled_waitsTillCompletion {
     public static void main(String[] args) throws InterruptedException {
         Thread t2 = new SampleThread(3);
