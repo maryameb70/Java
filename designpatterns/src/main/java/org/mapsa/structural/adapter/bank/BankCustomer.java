@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example4;
+package org.mapsa.structural.adapter.bank;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 public class BankCustomer extends BankDetails implements CreditCard { ////Adapter class

@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example3;
+package org.mapsa.structural.adapter.shape;
 
 public interface Shape {
     double getArea();

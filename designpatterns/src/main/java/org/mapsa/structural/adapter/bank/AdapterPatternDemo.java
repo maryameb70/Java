@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example4;
+package org.mapsa.structural.adapter.bank;
 
 public class AdapterPatternDemo { //client class
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example4;
+package org.mapsa.structural.adapter.bank;
 
 public interface CreditCard { //Target interface
      void giveBankDetails();

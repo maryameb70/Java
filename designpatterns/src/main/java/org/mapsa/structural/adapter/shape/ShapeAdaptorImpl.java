@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example3;
+package org.mapsa.structural.adapter.shape;
 
 public class ShapeAdaptorImpl implements ShapeAdaptor {
     private Shape shape;

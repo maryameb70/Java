@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example1;
+package org.mapsa.structural.adapter.car;
 
 public class Benz implements Movable {
     @Override

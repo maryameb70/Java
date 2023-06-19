@@ -1,6 +1,6 @@
-package org.mapsa.structural.adapter.example4;
+package org.mapsa.structural.adapter.bank;
 
-public class BankDetails { //Adapter class
+public class BankDetails { //Adaptee class
     private String bankName;
     private String accHolderName;
     private long accNumber;
