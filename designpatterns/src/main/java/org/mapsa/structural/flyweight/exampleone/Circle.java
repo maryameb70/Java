@@ -1,7 +1,7 @@
-package org.mapsa.structural.flyweight;
+package org.mapsa.structural.flyweight.exampleone;
 
 public class Circle implements Shape {
-    private String color;
+    private String color; //intrinsic property
     private int x;
     private int y;
     private int radius;

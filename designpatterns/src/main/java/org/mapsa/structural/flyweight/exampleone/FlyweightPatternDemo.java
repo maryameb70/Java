@@ -1,10 +1,10 @@
-package org.mapsa.structural.flyweight;
+package org.mapsa.structural.flyweight.exampleone;
 
 public class FlyweightPatternDemo {
     private static final String colors[] = { "Red", "Green", "Blue", "White", "Black" };
 
     public static void main(String[] args) {
-        for(int i=0; i < 20; ++i) {
+        for(int i=0; i < 10; ++i) {
             Circle circle = (Circle)ShapeFactory.getCircle(getRandomColor());
             circle.setX(getRandomX());
             circle.setY(getRandomY());
