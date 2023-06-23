@@ -1,4 +1,4 @@
-package org.mapsa.structural.adapter.example2;
+package org.mapsa.structural.adapter.socket;
 
 public class Volt {
     private int volts;
