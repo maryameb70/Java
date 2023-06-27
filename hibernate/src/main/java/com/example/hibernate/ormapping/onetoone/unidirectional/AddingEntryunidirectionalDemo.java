@@ -11,7 +11,7 @@ public class AddingEntryunidirectionalDemo {
                 .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(StudentGfgDetail.class)
                 .buildSessionFactory();
-        try (factory; Session session = factory.getCurrentSession()) {
+        try (factory; Session session = factory.openSession()) {
             StudentGfgDetail studentGfgDetail = new StudentGfgDetail("GFG College", 19);
             Student student = new Student("asma", "amiri", "asma@gmail.com", studentGfgDetail);
 
