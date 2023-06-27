@@ -24,6 +24,7 @@ public class AddingEntryunidirectionalDemo {
             session.getTransaction().commit();
             System.out.println(
                     "Transaction Successfully Completed!");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
