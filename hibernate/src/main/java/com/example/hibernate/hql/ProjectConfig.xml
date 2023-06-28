@@ -25,6 +25,7 @@
         <property name="current_session_context_class">thread</property>
         <!-- name of annotated entity class -->
         <mapping class="com.example.hibernate.hql.Book"/>
+        <mapping class="com.example.hibernate.hql.BookCategory"/>
     </session-factory>
 
 </hibernate-configuration>
