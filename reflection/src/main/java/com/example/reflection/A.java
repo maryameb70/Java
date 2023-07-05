@@ -8,4 +8,9 @@ public class A {
     private void f(){
         System.out.println("A.f() method invoked");
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(field);
+    }
 }
