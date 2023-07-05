@@ -1,4 +1,4 @@
-package com.example.reflection;
+package com.example.practiceone;
 
 public class B {
     public void g(){

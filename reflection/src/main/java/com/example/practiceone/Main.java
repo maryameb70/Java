@@ -1,4 +1,4 @@
-package com.example.reflection;
+package com.example.practiceone;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Scanner;
 
-public class Practice {
+public class Main {
     public static void main(String[] args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the name of the class:");
